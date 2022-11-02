@@ -1,0 +1,492 @@
+{
+  "place": [
+    {
+      "id": 1,
+      "name": "오리역 대형 회의실",
+      "coast": "150,000",
+      "profilImg": "https://cdn.pixabay.com/photo/2018/01/31/23/25/skyscraper-3122210_960_720.jpg",
+      "rating": 5.0,
+      "spaceType": "office1",
+      "capacity": 4,
+      "rentalCost": 20000,
+      "lineIntro": "4인 사무실 서울 가산 ",
+      "shortInto": "깔끔한 4인 사무실 대관합니다",
+      "imgs": [
+        {
+          "id": 1,
+          "img": "https://cdn.pixabay.com/photo/2018/01/31/23/25/skyscraper-3122210_960_720.jpg"
+        },
+        {
+          "id": 2,
+          "img": "https://cdn.pixabay.com/photo/2017/08/10/05/18/home-2618511_960_720.jpg"
+        },
+        {
+          "id": 3,
+          "img": "https://cdn.pixabay.com/photo/2017/05/31/11/17/office-2360063_960_720.jpg"
+        },
+        {
+          "id": 4,
+          "img": "https://cdn.pixabay.com/photo/2017/03/28/12/06/chairs-2181916_960_720.jpg"
+        }
+      ],
+      "spaceIntro": "가산에 소재한 4인용 사무실 입니다 책상과 의자는 넉넉하게 5개 있고 자유롭게 재배치 하셔도 되지만 사용후 반드시 원위치정리 부탁드립니다",
+      "location": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12665.004516223085!2d126.883425!3d37.4783998!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b61296cf3a3c7%3A0xdfadfc1c1a1dc9d9!2z642UIOyKpOy5tOydtOuwuOumrCAx7LCoIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1666851000078!5m2!1sko!2skr",
+      "useRule": "사용 후 반드시 정리 해주세요",
+      "reviews": [
+        {
+          "id": 1,
+          "reviewer": "신유수",
+          "reviewContent": "깔끔하고 좋아요!!!",
+          "starRating": "⭐⭐⭐⭐⭐"
+        },
+        {
+          "id": 2,
+          "reviewer": "최현민",
+          "reviewContent": "나쁘지 않아요",
+          "starRating": "⭐⭐⭐⭐"
+        },
+        {
+          "id": 3,
+          "reviewer": "박지연",
+          "reviewContent": "좋아요",
+          "starRating": "⭐⭐⭐⭐⭐"
+        }
+      ],
+      "qnas": [
+        {
+          "id": 1,
+          "asker": "유창현",
+          "askContent": "가산역 몇번 출구로 나와야 하나요?",
+          "answer": "5번 출구로 나와서 쭉 나오시면 되요!!"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "오리역 6인 회의실",
+      "coast": "30,000",
+      "profilImg": "https://cdn.pixabay.com/photo/2017/08/10/05/18/home-2618511_960_720.jpg",
+      "rating": 4.5,
+      "spaceType": "office",
+      "capacity": 6,
+      "rentalCost": 100000,
+      "lineIntro": "6인 사무실 용인 오리 ",
+      "shortInto": "깔끔한 6인 사무실 대관합니다",
+      "imgs": [
+        {
+          "id": 1,
+          "img": "https://cdn.pixabay.com/photo/2018/01/31/23/25/skyscraper-3122210_960_720.jpg"
+        },
+        {
+          "id": 2,
+          "img": "https://cdn.pixabay.com/photo/2017/08/10/05/18/home-2618511_960_720.jpg"
+        },
+        {
+          "id": 3,
+          "img": "https://cdn.pixabay.com/photo/2017/05/31/11/17/office-2360063_960_720.jpg"
+        },
+        {
+          "id": 4,
+          "img": "https://cdn.pixabay.com/photo/2017/03/28/12/06/chairs-2181916_960_720.jpg"
+        }
+      ],
+      "spaceIntro": "용인에 소재한 6인용 사무실 입니다 책상과 의자는 넉넉하게 7개 있고 자유롭게 재배치 하셔도 되지만 사용후 반드시 원위치정리 부탁드립니다",
+      "location": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12665.004516223085!2d126.883425!3d37.4783998!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b61296cf3a3c7%3A0xdfadfc1c1a1dc9d9!2z642UIOyKpOy5tOydtOuwuOumrCAx7LCoIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1666851000078!5m2!1sko!2skr",
+      "useRule": "사용 후 반드시 정리 해주세요",
+      "reviews": [
+        {
+          "id": 1,
+          "reviewer": "신유수",
+          "reviewContent": "깔끔하고 좋아요!!!",
+          "starRating": "⭐⭐⭐⭐⭐"
+        },
+        {
+          "id": 2,
+          "reviewer": "최현민",
+          "reviewContent": "나쁘지 않아요",
+          "starRating": "⭐⭐⭐⭐"
+        },
+        {
+          "id": 3,
+          "reviewer": "박지연",
+          "reviewContent": "좋아요",
+          "starRating": "⭐⭐⭐⭐⭐"
+        }
+      ],
+      "qnas": [
+        {
+          "id": 1,
+          "asker": "유창현",
+          "askContent": "가산역 몇번 출구로 나와야 하나요?",
+          "answer": "5번 출구로 나와서 쭉 나오시면 되요!!"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "오리역 2인 회의실",
+      "coast": "10,000",
+      "profilImg": "https://cdn.pixabay.com/photo/2017/05/31/11/17/office-2360063_960_720.jpg",
+      "rating": 4.5,
+      "spaceType": "office",
+      "capacity": 2,
+      "rentalCost": 100000,
+      "lineIntro": "4인 사무실 서울 가산 ",
+      "shortInto": "깔끔한 4인 사무실 대관합니다",
+      "imgs": [
+        {
+          "id": 1,
+          "img": "https://cdn.pixabay.com/photo/2018/01/31/23/25/skyscraper-3122210_960_720.jpg"
+        },
+        {
+          "id": 2,
+          "img": "https://cdn.pixabay.com/photo/2017/08/10/05/18/home-2618511_960_720.jpg"
+        },
+        {
+          "id": 3,
+          "img": "https://cdn.pixabay.com/photo/2017/05/31/11/17/office-2360063_960_720.jpg"
+        },
+        {
+          "id": 4,
+          "img": "https://cdn.pixabay.com/photo/2017/03/28/12/06/chairs-2181916_960_720.jpg"
+        }
+      ],
+      "spaceIntro": "가산에 소재한 4인용 사무실 입니다 책상과 의자는 넉넉하게 5개 있고 자유롭게 재배치 하셔도 되지만 사용후 반드시 원위치정리 부탁드립니다",
+      "location": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12665.004516223085!2d126.883425!3d37.4783998!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b61296cf3a3c7%3A0xdfadfc1c1a1dc9d9!2z642UIOyKpOy5tOydtOuwuOumrCAx7LCoIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1666851000078!5m2!1sko!2skr",
+      "useRule": "사용 후 반드시 정리 해주세요",
+      "reviews": [
+        {
+          "id": 1,
+          "reviewer": "신유수",
+          "reviewContent": "깔끔하고 좋아요!!!",
+          "starRating": "⭐⭐⭐⭐⭐"
+        },
+        {
+          "id": 2,
+          "reviewer": "최현민",
+          "reviewContent": "나쁘지 않아요",
+          "starRating": "⭐⭐⭐⭐"
+        },
+        {
+          "id": 3,
+          "reviewer": "박지연",
+          "reviewContent": "좋아요",
+          "starRating": "⭐⭐⭐⭐⭐"
+        }
+      ],
+      "qnas": [
+        {
+          "id": 1,
+          "asker": "유창현",
+          "askContent": "가산역 몇번 출구로 나와야 하나요?",
+          "answer": "5번 출구로 나와서 쭉 나오시면 되요!!"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "오리역 4인 회의실",
+      "coast": "20,000",
+      "profilImg": "https://cdn.pixabay.com/photo/2017/03/28/12/06/chairs-2181916_960_720.jpg",
+      "rating": 4.0,
+      "spaceType": "office1",
+      "capacity": 4,
+      "rentalCost": 20000,
+      "lineIntro": "4인 사무실 서울 가산 ",
+      "shortInto": "깔끔한 4인 사무실 대관합니다",
+      "imgs": [
+        {
+          "id": 1,
+          "img": "https://cdn.pixabay.com/photo/2018/01/31/23/25/skyscraper-3122210_960_720.jpg"
+        },
+        {
+          "id": 2,
+          "img": "https://cdn.pixabay.com/photo/2017/08/10/05/18/home-2618511_960_720.jpg"
+        },
+        {
+          "id": 3,
+          "img": "https://cdn.pixabay.com/photo/2017/05/31/11/17/office-2360063_960_720.jpg"
+        },
+        {
+          "id": 4,
+          "img": "https://cdn.pixabay.com/photo/2017/03/28/12/06/chairs-2181916_960_720.jpg"
+        }
+      ],
+      "spaceIntro": "가산에 소재한 4인용 사무실 입니다 책상과 의자는 넉넉하게 5개 있고 자유롭게 재배치 하셔도 되지만 사용후 반드시 원위치정리 부탁드립니다",
+      "location": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12665.004516223085!2d126.883425!3d37.4783998!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b61296cf3a3c7%3A0xdfadfc1c1a1dc9d9!2z642UIOyKpOy5tOydtOuwuOumrCAx7LCoIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1666851000078!5m2!1sko!2skr",
+      "useRule": "사용 후 반드시 정리 해주세요",
+      "reviews": [
+        {
+          "id": 1,
+          "reviewer": "신유수",
+          "reviewContent": "깔끔하고 좋아요!!!",
+          "starRating": "⭐⭐⭐⭐⭐"
+        },
+        {
+          "id": 2,
+          "reviewer": "최현민",
+          "reviewContent": "나쁘지 않아요",
+          "starRating": "⭐⭐⭐⭐"
+        },
+        {
+          "id": 3,
+          "reviewer": "박지연",
+          "reviewContent": "좋아요",
+          "starRating": "⭐⭐⭐⭐⭐"
+        }
+      ],
+      "qnas": [
+        {
+          "id": 1,
+          "asker": "유창현",
+          "askContent": "가산역 몇번 출구로 나와야 하나요?",
+          "answer": "5번 출구로 나와서 쭉 나오시면 되요!!"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "5리역 대형 회의실",
+      "coast": "150,000",
+      "profilImg": "https://cdn.pixabay.com/photo/2018/01/31/23/25/skyscraper-3122210_960_720.jpg",
+      "rating": 5.0,
+      "spaceType": "office1",
+      "capacity": 20,
+      "rentalCost": 150000,
+      "lineIntro": "5리역의 대형 회의실 ",
+      "shortInto": "무지큰 5리역의 대형 회의실",
+      "imgs": [
+        {
+          "id": 1,
+          "img": "https://cdn.pixabay.com/photo/2018/01/31/23/25/skyscraper-3122210_960_720.jpg"
+        },
+        {
+          "id": 2,
+          "img": "https://cdn.pixabay.com/photo/2017/08/10/05/18/home-2618511_960_720.jpg"
+        },
+        {
+          "id": 3,
+          "img": "https://cdn.pixabay.com/photo/2017/05/31/11/17/office-2360063_960_720.jpg"
+        },
+        {
+          "id": 4,
+          "img": "https://cdn.pixabay.com/photo/2017/03/28/12/06/chairs-2181916_960_720.jpg"
+        }
+      ],
+      "spaceIntro": "5리역의 엄청큰 회의실",
+      "location": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12665.004516223085!2d126.883425!3d37.4783998!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b61296cf3a3c7%3A0xdfadfc1c1a1dc9d9!2z642UIOyKpOy5tOydtOuwuOumrCAx7LCoIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1666851000078!5m2!1sko!2skr",
+      "useRule": "사용 후 반드시 정리 해주세요",
+      "reviews": [
+        {
+          "id": 1,
+          "reviewer": "신유수",
+          "reviewContent": "깔끔하고 좋아요!!!",
+          "starRating": "⭐⭐⭐⭐⭐"
+        },
+        {
+          "id": 2,
+          "reviewer": "최현민",
+          "reviewContent": "나쁘지 않아요",
+          "starRating": "⭐⭐⭐⭐"
+        },
+        {
+          "id": 3,
+          "reviewer": "박지연",
+          "reviewContent": "좋아요",
+          "starRating": "⭐⭐⭐⭐⭐"
+        }
+      ],
+      "qnas": [
+        {
+          "id": 1,
+          "asker": "유창현",
+          "askContent": "가산역 몇번 출구로 나와야 하나요?",
+          "answer": "5번 출구로 나와서 쭉 나오시면 되요!!"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "6리역 6인 회의실",
+      "coast": "30,000",
+      "profilImg": "https://cdn.pixabay.com/photo/2017/08/10/05/18/home-2618511_960_720.jpg",
+      "rating": 4.5,
+      "spaceType": "office1",
+      "capacity": 6,
+      "rentalCost": 30000,
+      "lineIntro": "6리역 6인 사무실 ",
+      "shortInto": "깔끔한 6인 사무실 대관합니다",
+      "imgs": [
+        {
+          "id": 1,
+          "img": "https://cdn.pixabay.com/photo/2018/01/31/23/25/skyscraper-3122210_960_720.jpg"
+        },
+        {
+          "id": 2,
+          "img": "https://cdn.pixabay.com/photo/2017/08/10/05/18/home-2618511_960_720.jpg"
+        },
+        {
+          "id": 3,
+          "img": "https://cdn.pixabay.com/photo/2017/05/31/11/17/office-2360063_960_720.jpg"
+        },
+        {
+          "id": 4,
+          "img": "https://cdn.pixabay.com/photo/2017/03/28/12/06/chairs-2181916_960_720.jpg"
+        }
+      ],
+      "spaceIntro": "오리에 소재한 6인 사무실 입니다 책상과 의자는 넉넉하게 5개 있고 자유롭게 재배치 하셔도 되지만 사용후 반드시 원위치정리 부탁드립니다",
+      "location": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12665.004516223085!2d126.883425!3d37.4783998!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b61296cf3a3c7%3A0xdfadfc1c1a1dc9d9!2z642UIOyKpOy5tOydtOuwuOumrCAx7LCoIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1666851000078!5m2!1sko!2skr",
+      "useRule": "사용 후 반드시 정리 해주세요",
+      "reviews": [
+        {
+          "id": 1,
+          "reviewer": "신유수",
+          "reviewContent": "깔끔하고 좋아요!!!",
+          "starRating": "⭐⭐⭐⭐⭐"
+        },
+        {
+          "id": 2,
+          "reviewer": "최현민",
+          "reviewContent": "나쁘지 않아요",
+          "starRating": "⭐⭐⭐⭐"
+        },
+        {
+          "id": 3,
+          "reviewer": "박지연",
+          "reviewContent": "좋아요",
+          "starRating": "⭐⭐⭐⭐⭐"
+        }
+      ],
+      "qnas": [
+        {
+          "id": 1,
+          "asker": "유창현",
+          "askContent": "오리역 몇번 출구로 나와야 하나요?",
+          "answer": "5번 출구로 나와서 쭉 나오시면 되요!!"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "7리역 2인 회의실",
+      "coast": "10,000",
+      "profilImg": "https://cdn.pixabay.com/photo/2017/05/31/11/17/office-2360063_960_720.jpg",
+      "rating": 4.5,
+      "spaceType": "office1",
+      "capacity": 2,
+      "rentalCost": 10000,
+      "lineIntro": "7리역 2인 사무실 ",
+      "shortInto": "깔끔한 2인 사무실 대관합니다",
+      "imgs": [
+        {
+          "id": 1,
+          "img": "https://cdn.pixabay.com/photo/2018/01/31/23/25/skyscraper-3122210_960_720.jpg"
+        },
+        {
+          "id": 2,
+          "img": "https://cdn.pixabay.com/photo/2017/08/10/05/18/home-2618511_960_720.jpg"
+        },
+        {
+          "id": 3,
+          "img": "https://cdn.pixabay.com/photo/2017/05/31/11/17/office-2360063_960_720.jpg"
+        },
+        {
+          "id": 4,
+          "img": "https://cdn.pixabay.com/photo/2017/03/28/12/06/chairs-2181916_960_720.jpg"
+        }
+      ],
+      "spaceIntro": "오리에 소재한 2인 사무실 입니다 책상과 의자는 넉넉하게 5개 있고 자유롭게 재배치 하셔도 되지만 사용후 반드시 원위치정리 부탁드립니다",
+      "location": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12665.004516223085!2d126.883425!3d37.4783998!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b61296cf3a3c7%3A0xdfadfc1c1a1dc9d9!2z642UIOyKpOy5tOydtOuwuOumrCAx7LCoIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1666851000078!5m2!1sko!2skr",
+      "useRule": "사용 후 반드시 정리 해주세요",
+      "reviews": [
+        {
+          "id": 1,
+          "reviewer": "신유수",
+          "reviewContent": "깔끔하고 좋아요!!!",
+          "starRating": "⭐⭐⭐⭐⭐"
+        },
+        {
+          "id": 2,
+          "reviewer": "최현민",
+          "reviewContent": "나쁘지 않아요",
+          "starRating": "⭐⭐⭐⭐"
+        },
+        {
+          "id": 3,
+          "reviewer": "박지연",
+          "reviewContent": "좋아요",
+          "starRating": "⭐⭐⭐⭐⭐"
+        }
+      ],
+      "qnas": [
+        {
+          "id": 1,
+          "asker": "유창현",
+          "askContent": "오리역 몇번 출구로 나와야 하나요?",
+          "answer": "5번 출구로 나와서 쭉 나오시면 되요!!"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "8리역 4인 회의실",
+      "coast": "20,000",
+      "profilImg": "https://cdn.pixabay.com/photo/2017/03/28/12/06/chairs-2181916_960_720.jpg",
+      "rating": 4.0,
+      "spaceType": "office1",
+      "capacity": 6,
+      "rentalCost": 30000,
+      "lineIntro": "8리역 4인 사무실 ",
+      "shortInto": "깔끔한 4인 사무실 대관합니다",
+      "imgs": [
+        {
+          "id": 1,
+          "img": "https://cdn.pixabay.com/photo/2018/01/31/23/25/skyscraper-3122210_960_720.jpg"
+        },
+        {
+          "id": 2,
+          "img": "https://cdn.pixabay.com/photo/2017/08/10/05/18/home-2618511_960_720.jpg"
+        },
+        {
+          "id": 3,
+          "img": "https://cdn.pixabay.com/photo/2017/05/31/11/17/office-2360063_960_720.jpg"
+        },
+        {
+          "id": 4,
+          "img": "https://cdn.pixabay.com/photo/2017/03/28/12/06/chairs-2181916_960_720.jpg"
+        }
+      ],
+      "spaceIntro": "오리에 소재한 4인 사무실 입니다 책상과 의자는 넉넉하게 5개 있고 자유롭게 재배치 하셔도 되지만 사용후 반드시 원위치정리 부탁드립니다",
+      "location": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12665.004516223085!2d126.883425!3d37.4783998!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b61296cf3a3c7%3A0xdfadfc1c1a1dc9d9!2z642UIOyKpOy5tOydtOuwuOumrCAx7LCoIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1666851000078!5m2!1sko!2skr",
+      "useRule": "사용 후 반드시 정리 해주세요",
+      "reviews": [
+        {
+          "id": 1,
+          "reviewer": "신유수",
+          "reviewContent": "깔끔하고 좋아요!!!",
+          "starRating": "⭐⭐⭐⭐⭐"
+        },
+        {
+          "id": 2,
+          "reviewer": "최현민",
+          "reviewContent": "나쁘지 않아요",
+          "starRating": "⭐⭐⭐⭐"
+        },
+        {
+          "id": 3,
+          "reviewer": "박지연",
+          "reviewContent": "좋아요",
+          "starRating": "⭐⭐⭐⭐⭐"
+        }
+      ],
+      "qnas": [
+        {
+          "id": 1,
+          "asker": "유창현",
+          "askContent": "오리역 몇번 출구로 나와야 하나요?",
+          "answer": "5번 출구로 나와서 쭉 나오시면 되요!!"
+        }
+      ]
+    }
+  ]
+}
