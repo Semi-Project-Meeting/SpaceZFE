@@ -68,7 +68,7 @@
                 {{ num1 }}시
               </option>
             </select>
-            <label style="margin-left: 10px; font-size: 20px"
+            <label style="margin-left: 5px; font-size: 20px"
               >반납시각:{{ now }}-</label
             >
             <select
@@ -268,14 +268,8 @@ export default {
       const res = await axios.get(
         "http://localhost:8090/spaceZBE/spaceInfo?spaceId=" + route.params.id
       );
-      // console.log(res);
       details.value = { ...res.data };
-      console.log(details.value.merchant_uid);
-      // console.log(details.value);
-      // console.log(res.request);
-      // requests.value = JSON.parse(res.request.response).merchant_uid;
-      // console.log(requests.value);
-      // console.log(res.request.response.merchant_uid);
+      console.log(details.value);
       // 지우면 안됌
       // currentImg.value = details.value.imgs[currentImgNum.value].img;
       // console.log(details.value.imgs[currentImgNum.value].img);
@@ -283,8 +277,8 @@ export default {
     getDetails();
 
     // console.log(requests.value);
-    console.log(details.value.merchant_uid);
-    console.log(details.value.avgRating);
+    console.log(details.value);
+    // console.log(details.value.avgRating);
 
     //메인사진 클릭시 변경
     const changePic = () => {
@@ -322,11 +316,12 @@ export default {
         //db에 저장한 공간의 대여로 곱하기 위에서 구한 일수
         total =
           getDateDiff(endDate.value, startDate.value) *
-          details.value.rentalCost;
+          details.value.space.price;
         //가시성 좋게 1000단위 마다 ,찍는 로직 추가
-        officePrice.value = total
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        officePrice.value = total;
+        // .toString()
+        // .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        console.log(officePrice.value);
       }
     };
 
@@ -340,78 +335,120 @@ export default {
         errMessage.value = "";
         total =
           (endDateTime.value - startDateTime.value) * details.value.space.price;
-        nOfficePrice.value = total
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        nOfficePrice.value = total;
+        // .toString()
+        // .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       }
     };
 
     //시간 보여줄때 옆에 날짜도 보여주는 기능
     const date = new Date();
-    now = `${date.getMonth() + 1}-${date.getDate()}`;
+    now = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 
-    //데스크 회의실 - 결제(후불) 버튼
+    //데스크 회의실 - 보증금 버튼
     const submit = async () => {
       // post정보 확인
       // console.log(
-      //   details.value.id,
-      //   startDateTime.value,
-      //   endDateTime.value,
+      //   details.value.space.spaceId,
+      //   now + "-" + startDateTime.value + ":00",
+      //   now + "-" + endDateTime.value + ":00",
       //   nOfficePrice.value
       // );
-      //  IMP.init("imp76177137");
-      //   IMP.request_pay(
-      // {
-      //   pg: "kakaopay.TCSUBSCRIP",
-      //   pay_method: "card", // 기능 없음.
-      //   merchant_uid: `${requests.value}`, // 상점에서 관리하는 주문 번호
-      //   name: details.value.space.spaceName,
-      //   amount: details.value.space.price, // 빌링키 발급과 함께 40원 결제승인을 시도합니다. price의 20%만 계산해서 넣는다. //후결제인 경우, 0으로 넣는다.
-      //   customer_uid: "1", // 필수 입력
-      //   buyer_email: "iamport@siot.do",
-      //   buyer_name: "아임포트",
-      //   buyer_tel: "02-1234-1234",
-      // }
-      try {
-        axios.post("http://localhost:8090/spaceZBE/reserve/insert", {
-          spaceId: details.value.id,
-          memberId: localStorage.getItem("memberId"),
-          startDate: startDateTime.value,
-          endDate: endDateTime.value,
-          price: nOfficePrice.value,
-        });
-      } catch (error) {
-        console.alert("error:" + error);
-      }
+      IMP.init("imp76177137");
+      IMP.request_pay(
+        {
+          pg: "kakaopay.TCSUBSCRIP",
+          pay_method: "card", // 기능 없음.
+          merchant_uid: details.value.merchant_uid, // 상점에서 관리하는 주문 번호
+          name: details.value.space.spaceName,
+          amount: details.value.space.price * 0.2, // 빌링키 발급과 함께 40원 결제승인을 시도합니다. price의 20%만 계산해서 넣는다. //후결제인 경우, 0으로 넣는다.
+          customer_uid: localStorage.getItem("memberId"), // 필수 입력
+          buyer_email: "",
+          buyer_name: "",
+          buyer_tel: "",
+        },
+        function (rsp) {
+          if (rsp.success)
+            axios.post("http://localhost:8090/spaceZBE/reserve/insert", {
+              imp_uid: rsp.imp_uid,
+              prepay_uid: rsp.merchant_uid,
+              memberId: parseInt(localStorage.getItem("memberId")),
+              companyId: details.value.space.companyId,
+              payStatus: "003",
+              price: nOfficePrice.value,
+              prepay: "002",
+              spaceId: details.value.space.spaceId,
+              startDate: now + " " + startDateTime.value + ":00",
+              endDate: now + " " + endDateTime.value + ":00",
+            });
+        }
+      );
     };
     //데스크 회의실 - 선불 버튼
     const preSubmit = async () => {
-      try {
-        axios.post("http://localhost:8090/spaceZBE/reserve/insert", {
-          spaceId: details.value.id,
-          memberId: localStorage.getItem("memberId"),
-          startDate: startDateTime.value,
-          endDate: endDateTime.value,
-          price: nOfficePrice.value,
-          prepay: "선결제",
-        });
-      } catch (error) {
-        console.alert("error:" + error);
-      }
+      IMP.init("imp76177137");
+      IMP.request_pay(
+        {
+          pg: "kakaopay.TC0ONETIME",
+          pay_method: "card", // 기능 없음.
+          merchant_uid: details.value.merchant_uid, // 상점에서 관리하는 주문 번호
+          name: details.value.space.spaceName,
+          amount: details.value.space.price, // 빌링키 발급과 함께 40원 결제승인을 시도합니다. price의 20%만 계산해서 넣는다. //후결제인 경우, 0으로 넣는다.
+          customer_uid: localStorage.getItem("memberId"), // 필수 입력
+          buyer_email: "",
+          buyer_name: "",
+          buyer_tel: "",
+        },
+        function (rsp) {
+          if (rsp.success)
+            axios.post("http://localhost:8090/spaceZBE/reserve/insert", {
+              imp_uid: rsp.imp_uid,
+              prepay_uid: rsp.merchant_uid,
+              memberId: parseInt(localStorage.getItem("memberId")),
+              companyId: details.value.space.companyId,
+              payStatus: "002",
+              price: nOfficePrice.value,
+              prepay: "000",
+              spaceId: details.value.space.spaceId,
+              startDate: now + " " + startDateTime.value + ":00",
+              endDate: now + " " + endDateTime.value + ":00",
+            });
+        }
+      );
     };
 
     //오피스 - 결제 버튼
     const resSubmit = async () => {
-      try {
-        axios.post("http://localhost:8090/spaceZBE/reserve/insert", {
-          spaceID: details.value.id,
-          startDate: startDate.value,
-          endDate: endDate.value,
-          price: officePrice.value,
-        });
-      } catch (error) {
-        console.alert("error:" + error);
-      }
+      IMP.init("imp76177137");
+      IMP.request_pay(
+        {
+          pg: "kakaopay.TCSUBSCRIP",
+          pay_method: "card", // 기능 없음.
+          merchant_uid: details.value.merchant_uid, // 상점에서 관리하는 주문 번호
+          name: details.value.space.spaceName,
+          amount: 0, // 빌링키 발급과 함께 40원 결제승인을 시도합니다. price의 20%만 계산해서 넣는다. //후결제인 경우, 0으로 넣는다.
+          customer_uid: localStorage.getItem("memberId"), // 필수 입력
+          buyer_email: "",
+          buyer_name: "",
+          buyer_tel: "",
+        },
+        function (rsp) {
+          console.log(officePrice.value);
+          if (rsp.success)
+            axios.post("http://localhost:8090/spaceZBE/reserve/insert", {
+              imp_uid: rsp.imp_uid,
+              prepay_uid: rsp.merchant_uid,
+              memberId: parseInt(localStorage.getItem("memberId")),
+              companyId: details.value.space.companyId,
+              payStatus: "001",
+              price: officePrice.value,
+              prepay: "002",
+              spaceId: details.value.space.spaceId,
+              startDate: startDate.value + " " + "00:00",
+              endDate: endDate.value + " " + "23:59",
+            });
+        }
+      );
     };
 
     // 하단 nav바 버튼들
@@ -609,7 +646,7 @@ iframe {
 }
 .time {
   margin: none;
-  width: 100px;
+  width: 70px;
   margin-top: 20px;
   border: 1px solid white;
   font-size: 20px;
