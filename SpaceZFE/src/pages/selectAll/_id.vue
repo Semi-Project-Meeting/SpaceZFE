@@ -1,5 +1,5 @@
 <template>
-  <SelectAll />
+  <SelectAll :resultSplit="resultSplit" />
 </template>
 
 <script>
@@ -10,16 +10,16 @@ export default {
     SelectAll,
   },
 
-  // setup() {
-  //   const route = useRoute();
+  setup() {
+    const route = useRoute();
 
-  //   const result = route.params.id;
+    const result = route.params.id;
 
-  //   const resultSplit = result.split(" ");
+    const resultSplit = result.split(" ");
 
-  //   console.log(resultSplit);
-  //   return {};
-  // },
+    console.log(resultSplit);
+    return {};
+  },
 };
 </script>
 
