@@ -8,6 +8,7 @@
         <p class="shortInto">{{ details.space.info }}</p>
         <div class="img">
           <img class="big" name="big" :src="currentImg" @click="changePic" />
+          <img class="big" name="big" :src='`http://localhost:8090/spaceZBE/resources/upload/90fa5a82-fb63-4da0-9f23-6e0bb6910de0_%EC%82%AC%EC%A7%84.jpg`' @click="changePic" />
           <!-- details.imgs[currentImgNum].img -->
           <br />
 
