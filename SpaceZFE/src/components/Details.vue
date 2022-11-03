@@ -178,7 +178,7 @@
         <div class="reviewClicked" v-show="reviewClicked">
           <div style="margin-top: 20px">
             <a class="reviews" v-for="num in details.reviews" :key="num">
-              {{ num.reviewId }} {{ num.length }} <br />
+              평점 : ⭐ {{ num.rating }} <br />
               {{ num.content }} {{ num.reviewDate }}
               <!-- {{ num.reviewer }} {{ num.starRating }} <br />
               {{ num.reviewContent }} <br /> -->
