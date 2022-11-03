@@ -1,32 +1,31 @@
 <template>
   <div>
-    <h2>인기 장소</h2>
+    <h2>최근 추가된 장소</h2>
     <div class="popPlace" v-on:scroll="horizontalScroll">
+      <!-- {{ recentPlace }}  C:\golfzon\frame_work\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SpaceZBE_SpaceZBE\resources\upload -->
       <section
         class="lists"
-        v-for="num in place.length"
-        :key="place[num]"
-        @click="moveToPage(place[num].id)"
+        v-for="currentImgNum in recentPlace.length"
+        :key="recentPlace[currentImgNum]"
+        @click="moveToPage(recentPlace[currentImgNum - 1].spaceId)"
       >
-        <!-- {{ place[num].id }} -->
-        <img class="img" :src="place[num - 1].profilImg" />
-        <h3>{{ place[num - 1].name }}</h3>
-        <p>{{ place[num - 1].coast }}원 ⭐{{ place[num - 1].rating }}</p>
+        <img class="img" src="recentPlace[0].imgName" />
+        <h3>{{ recentPlace[currentImgNum - 1].spaceName }}</h3>
+        <p>{{ recentPlace[currentImgNum - 1].price }}원</p>
         <p></p>
       </section>
     </div>
-    <h2>새로 등록된 장소</h2>
+    <h2>추천 장소</h2>
     <div class="latestPlace">
       <section
         class="lists"
-        v-for="num in place.length"
-        :key="place[num]"
-        @click="moveToPage(place[num - 1].id)"
+        v-for="num in recommendPlace.length"
+        :key="recommendPlace[num]"
+        @click="moveToPage(recommendPlace[num - 1].spaceId)"
       >
-        {{ place[num - 1].id }}
-        <img class="img" :src="place[num - 1].profilImg" />
-        <h3>{{ place[num - 1].name }}</h3>
-        <p>{{ place[num - 1].coast }}원 ⭐{{ place[num - 1].rating }}</p>
+        <img class="img" :src="recommendPlace[num - 1].profilImg" />
+        <h3>{{ recommendPlace[num - 1].spaceName }}</h3>
+        <p>{{ recommendPlace[num - 1].price }}원</p>
         <p></p>
       </section>
     </div>
@@ -43,18 +42,34 @@ export default {
   setup() {
     const store = useStore();
 
-    console.log(store.state.memberId);
+    const recommendPlace = ref({});
 
-    const place = ref([]);
+    let currentImgNum = ref(0);
+    const recentPlaceImg = ref("");
+    const recentPlace = ref([]);
 
     const router = useRouter();
 
     const getPlaces = async () => {
-      const res = await axios.get("http://localhost:3001/place");
-      place.value = res.data;
+      const res = await axios.get(
+        "http://localhost:8090/spaceZBE/recommendedSpace"
+      );
+      recommendPlace.value = res.data.vos;
     };
 
     getPlaces();
+
+    const getPlaces2 = async () => {
+      const res = await axios.get(
+        "http://localhost:8090/spaceZBE/recentlyAdded"
+      );
+      recentPlace.value = res.data.vos;
+      // recentPlaceImg.value = res.data.vos
+      recentPlaceImg.value = res.data.vos[currentImgNum.value].imgName;
+      console.log(recentPlaceImg.value);
+    };
+
+    getPlaces2();
 
     const moveToPage = (placeId) => {
       console.log(placeId);
@@ -62,14 +77,17 @@ export default {
       router.push({
         name: "Details",
         params: {
-          id: placeId - 1,
+          id: placeId,
         },
       });
     };
 
     return {
-      place,
+      recommendPlace,
       moveToPage,
+      recentPlace,
+      currentImgNum,
+      recentPlaceImg,
     };
   },
 };
