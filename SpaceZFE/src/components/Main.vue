@@ -9,7 +9,12 @@
         :key="recentPlace[currentImgNum]"
         @click="moveToPage(recentPlace[currentImgNum - 1].spaceId)"
       >
-        <img class="img" src="recentPlace[0].imgName" />
+        <img
+          class="img"
+          :src="`http://localhost:8090/spaceZBE/resources/upload/${
+            recentPlace[currentImgNum - 1].imgName
+          }`"
+        />
         <h3>{{ recentPlace[currentImgNum - 1].spaceName }}</h3>
         <p>{{ recentPlace[currentImgNum - 1].price }}원</p>
         <p></p>
@@ -19,13 +24,18 @@
     <div class="latestPlace">
       <section
         class="lists"
-        v-for="num in recommendPlace.length"
-        :key="recommendPlace[num]"
-        @click="moveToPage(recommendPlace[num - 1].spaceId)"
+        v-for="currentImgNum in recommendPlace.length"
+        :key="recommendPlace[currentImgNum]"
+        @click="moveToPage(recommendPlace[currentImgNum - 1].spaceId)"
       >
-        <img class="img" :src="recommendPlace[num - 1].profilImg" />
-        <h3>{{ recommendPlace[num - 1].spaceName }}</h3>
-        <p>{{ recommendPlace[num - 1].price }}원</p>
+        <img
+          class="img"
+          :src="`http://localhost:8090/spaceZBE/resources/upload/${
+            recommendPlace[currentImgNum - 1].imgName
+          }`"
+        />
+        <h3>{{ recommendPlace[currentImgNum - 1].spaceName }}</h3>
+        <p>{{ recommendPlace[currentImgNum - 1].price }}원</p>
         <p></p>
       </section>
     </div>
@@ -45,7 +55,7 @@ export default {
     const recommendPlace = ref({});
 
     let currentImgNum = ref(0);
-    const recentPlaceImg = ref("");
+    // const recentPlaceImg = ref("");
     const recentPlace = ref([]);
 
     const router = useRouter();
@@ -55,6 +65,7 @@ export default {
         "http://localhost:8090/spaceZBE/recommendedSpace"
       );
       recommendPlace.value = res.data.vos;
+      console.log(recommendPlace.value[0].imgName);
     };
 
     getPlaces();
@@ -64,9 +75,8 @@ export default {
         "http://localhost:8090/spaceZBE/recentlyAdded"
       );
       recentPlace.value = res.data.vos;
-      // recentPlaceImg.value = res.data.vos
-      recentPlaceImg.value = res.data.vos[currentImgNum.value].imgName;
-      console.log(recentPlaceImg.value);
+      console.log(recentPlace.value[0].imgName);
+      console.log(recentPlace.value);
     };
 
     getPlaces2();
@@ -87,7 +97,6 @@ export default {
       moveToPage,
       recentPlace,
       currentImgNum,
-      recentPlaceImg,
     };
   },
 };
