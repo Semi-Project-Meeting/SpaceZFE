@@ -7,7 +7,12 @@
         <br />
         <p class="shortInto">{{ details.space.info }}</p>
         <div class="img">
-          <img class="big" name="big" :src="currentImg" @click="changePic" />
+          <img
+            class="big"
+            name="big"
+            :src="`http://localhost:8090/spaceZBE/resources/upload/${currentImg}`"
+            @click="changePic"
+          />
           <!-- details.imgs[currentImgNum].img -->
           <br />
 
@@ -204,41 +209,16 @@ import { useRoute } from "vue-router";
 export default {
   setup() {
     const details = ref({
-      // id: 0,
-      // spaceType: "",
-      // capacity: 0,
-      // rentalCost: 0,
-      // lineIntro: "",
-      // shortInto: "",
-      // imgs: [],
-
-      // spaceIntro: "",
-      // location: "",
-      // useRule: "",
-      // reviews: [],
-      // qnas: [],
-
       space: {},
-      // spaceId: 0,
-      // companyId: 0,
-      // memberId: 0,
-      // spaceName: "",
-      // info: "",
-      // moreInfo: "",
-      // imgName: "",
-      // type: "",
-      // location: "",
-      // capacity: 0,
-      // price: 0,
-
       reviews: [],
       replys: [],
       qnas: [],
       avgRating: 0,
       merchant_uid: "",
+      images: [],
     });
 
-    const requests = ref([]);
+    // const requests = ref([]);
     const route = useRoute();
     let officePrice = ref(0);
     let nOfficePrice = ref(0);
@@ -271,25 +251,23 @@ export default {
       details.value = { ...res.data };
       console.log(details.value);
       // 지우면 안됌
-      // currentImg.value = details.value.imgs[currentImgNum.value].img;
-      // console.log(details.value.imgs[currentImgNum.value].img);
+      currentImg.value = details.value.images[currentImgNum.value].imgName;
+      console.log(details.value.images[currentImgNum.value].imgName);
     };
     getDetails();
 
-    // console.log(requests.value);
     console.log(details.value);
-    // console.log(details.value.avgRating);
 
     //메인사진 클릭시 변경
     const changePic = () => {
       currentImgNum.value++;
       // currentImg.value = details.value.imgs[currentImgNum.value].img;
       console.log(currentImgNum.value);
-      if (currentImgNum.value === details.value.imgs.length) {
+      if (currentImgNum.value === details.value.images.length) {
         currentImgNum.value = 0;
       }
       console.log(currentImgNum.value);
-      currentImg.value = details.value.imgs[currentImgNum.value].img;
+      currentImg.value = details.value.images[currentImgNum.value].imgName;
     };
 
     //사진 리스트 클릭시 해당 사진 변경
