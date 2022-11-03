@@ -3,7 +3,7 @@
   <nav>
     <nav class="nav">
       <span class="search" @click.stop="openSearchModal">🔍</span>
-      <router-link class="logo" :to="{ name: 'Home' }">logo</router-link>
+      <router-link class="logo" :to="{ name: 'Home' }">SpaceZ</router-link>
       <span class="locInsert"> 장소등록</span>
       <span v-show="!logined" class="login" @click.stop="openModal">
         로그인</span

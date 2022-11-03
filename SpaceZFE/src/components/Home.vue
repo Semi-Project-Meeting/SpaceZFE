@@ -5,7 +5,7 @@
       <span class="nar1">시작해보세요 사무 공간 임대</span>
       <span class="nar2">1인 데스크 부터 20인 대형 사무실 까지</span>
       <span class="nar3">모두를 위한 임대 서비스</span>
-      <span class="nar5"><b>logo</b></span>
+      <span class="nar5"><b>SpaceZ</b></span>
       <router-link class="nar4" :to="{ name: 'Main' }">시작하기 </router-link>
     </div>
   </div>
