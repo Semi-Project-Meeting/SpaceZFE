@@ -12,11 +12,18 @@
           </button>
           <br />
           <p>인증번호 입력</p>
-          <input type="email" name="emailCerificate" v-model="emailCerti" />
-          <button class="certification" @click="checkCerti">인증</button>
+          <input type="number" name="emailCerificate" v-model="emailCerti" />
+          <button class="certification" @click="checkCerti">
+            {{ checkButton }}
+          </button>
           <br />
           <p>비밀번호</p>
-          <input type="password" name="password1" v-model="password" />
+          <input
+            type="password"
+            name="password1"
+            v-model="password"
+            @change="pwLengChek"
+          />{{ pwlengthCheck }}
           <br />
           <p>비밀번호 확인</p>
           <input type="password" name="password2" v-model="pwCheck" />
@@ -24,9 +31,8 @@
           <p>닉네임</p>
           <input type="tel" name="nickname" v-model="nickname" />
           <br />
-          <router-link :to="{ name: 'Home' }">
-            <button class="insertOK" @click="insertOK">가입완료</button>
-          </router-link>
+          {{ err
+          }}<button class="insertOK" @click="insertDone">가입완료</button>
         </div>
       </div>
     </div>
@@ -36,35 +42,75 @@
 <script>
 import axios from "axios";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
+    const router = useRouter();
     const email = ref("");
     const emailCerti = ref("");
+    const certiNum = ref(0);
     const password = ref("");
     const pwCheck = ref("");
     const nickname = ref("");
+    const checkButton = ref("인증");
+    const err = ref("");
+    const pwlengthCheck = ref("");
+
+    const sendCerti = async () => {
+      const res = await axios
+        .post("http://localhost:8090/spaceZBE/member/mail", {
+          receiver: email.value,
+        })
+        .then((res) => {
+          certiNum.value = JSON.parse(res.request.response).result;
+          console.log(certiNum.value);
+        });
+    };
+
+    const checkCerti = () => {
+      if (emailCerti.value === certiNum.value) {
+        checkButton.value = "인증완료";
+      } else {
+        checkButton.value = "인증실패";
+      }
+    };
+
+    const insertDone = () => {
+      if (password.value !== pwCheck.value) {
+        err.value = "비밀번호 확인이 올바르지 않습니다 다시 확인해주세요";
+      } else if (checkButton.value !== "인증완료") {
+        err.value = "이메일 인증을 해주세요";
+      } else if (!nickname.value) {
+        err.value = "닉네임을 입력해주세요";
+      } else if (
+        password.value === pwCheck.value &&
+        checkButton.value === "인증완료" &&
+        nickname.value
+      ) {
+        err.value = "";
+        insertOK();
+        router.push({
+          name: "Home",
+        });
+      }
+    };
 
     const insertOK = () => {
-      console.log(
-        email.value,
-        emailCerti.value,
-        password.value,
-        pwCheck.value,
-        nickname.value
-      );
       axios.post("http://localhost:8090/spaceZBE/member/signUp", {
         membername: nickname.value,
         email: email.value,
         password: password.value,
         authority: "member",
       });
-      //       {
-      // "membername" : "신유스오",
-      // "email" : "1234@naver.com",
-      // "password" : "123",
-      // "authority" : "member"
-      // }
+    };
+
+    const pwLengChek = () => {
+      if (password.value.length < 8) {
+        pwlengthCheck.value = "비밀번호는 8자 이상이여야합니다";
+      } else {
+        pwlengthCheck.value = "";
+      }
     };
 
     return {
@@ -72,8 +118,16 @@ export default {
       emailCerti,
       password,
       pwCheck,
+      pwLengChek,
       nickname,
       insertOK,
+      sendCerti,
+      checkCerti,
+      certiNum,
+      checkButton,
+      insertDone,
+      err,
+      pwlengthCheck,
     };
   },
 };
