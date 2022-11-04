@@ -4,7 +4,7 @@
     <nav class="nav">
       <span class="search" @click.stop="openSearchModal">🔍</span>
       <router-link class="logo" :to="{ name: 'Home' }">SpaceZ</router-link>
-      <span class="locInsert"> 장소등록</span>
+      <span class="locInsert" @click="moveToPage"> 장소등록</span>
       <span v-show="!logined" class="login" @click.stop="openModal">
         로그인</span
       >
@@ -31,6 +31,7 @@ import SearchModal from "@/components/SearchModal.vue";
 import Modal from "@/components/LoginModal.vue";
 import { ref } from "vue";
 import LogoutModal from "@/components/LogoutModal.vue";
+import { useRouter } from "vue-router";
 
 export default {
   components: {
@@ -38,12 +39,13 @@ export default {
     SearchModal,
     LogoutModal,
   },
-  setup() {
+  setup(props, context) {
     // const router = useRouter();
     const logined = ref("");
     const showModal = ref(false);
     const showLogoutModal = ref(false);
     const showSearchModal = ref(false);
+    const router = useRouter();
 
     const loginCheck = () => {
       if (localStorage.getItem("memberId")) {
@@ -54,6 +56,16 @@ export default {
     };
 
     loginCheck();
+
+    const moveToPage = () => {
+      if (!localStorage.getItem("memberId")) {
+        openModal();
+      } else if (localStorage.getItem("memberId")) {
+        router.push({
+          name: "InsertSpace",
+        });
+      }
+    };
 
     const openLogOut = () => {
       showLogoutModal.value = true;
@@ -68,6 +80,7 @@ export default {
     };
 
     const openModal = () => {
+      context.emit("onClose", showModal.value);
       showModal.value = true;
     };
 
@@ -87,6 +100,7 @@ export default {
       closeSearchModal,
       openLogOut,
       showLogoutModal,
+      moveToPage,
     };
   },
 };
