@@ -55,6 +55,11 @@
               원
             </p>
           </div>
+          <div class="mileageDiv">
+            <p class="price" style="margin-left:20px;">마일리지사용</p>
+            <input class="mileage" type="number">
+            <button class="mileageBtn">사용</button>
+          </div>
           <p class="payRule">
             &#8251;오피스 예약은 후불제이며 선결제가 불가능합니다&#8251;
           </p>
@@ -90,6 +95,11 @@
           <p>{{ errMessage }}</p>
           <div class="priceDiv">
             <p class="price">가격 {{ nOfficePrice }}원</p>
+          </div>
+          <div class="mileageDiv">
+            <p class="price" style="margin-left:20px;">마일리지사용</p>
+            <input class="mileage" type="number">
+            <button class="mileageBtn">사용</button>
           </div>
           <p class="payRule">
             &#8251;선결제 예약 시 보증금을 포함한 전 금액을 지불하고, 결재금액의
@@ -563,6 +573,16 @@ button {
   color: blue;
   margin-right: 200px;
 }
+.mileageBtn {
+  width: 80px;
+  height: 50px;
+  border-radius: 20px;
+  font-size: 25px;
+  border: 1px solid skyblue;
+  background: skyblue;
+  color: blue;
+  margin: 8px 0px 0px -100px;
+}
 
 iframe {
   width: 700px;
@@ -617,6 +637,17 @@ iframe {
   border-radius: 10px;
   margin-bottom: 80px;
 }
+.mileageDiv {
+  width: 600px;
+  height: 70px;
+  font-size: 25px;
+  word-spacing: 160px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-bottom: 80px;
+  display: flex;
+  justify-content: space-around;
+}
 .date {
   margin-top: 10px;
   border: 1px solid white;
@@ -632,9 +663,17 @@ iframe {
 .price {
   margin-top: 10px;
 }
+.mileage{
+  width: 100px;
+  height: 50px;
+  margin: 8px 0px 0px 0px;
+  border-radius: 10px;
+  border : 1px solid 	#B9BBB6;
+}
 .payRule {
   font-size: 20px;
-  margin-right: 300px;
+  margin-right: 190px;
+  margin-bottom: 20px;
 }
 .depositSubmit {
   width: 300px;
@@ -644,7 +683,7 @@ iframe {
   border: 1px solid skyblue;
   background: skyblue;
   color: blue;
-  margin-right: 20px;
+  margin-right: 40px;
 }
 .preSubmit {
   width: 300px;
