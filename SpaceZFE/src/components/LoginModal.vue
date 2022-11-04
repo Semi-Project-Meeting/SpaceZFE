@@ -68,6 +68,7 @@ export default {
               "memberId",
               JSON.parse(res.request.response).member_id
             );
+            window.location.reload(true);
             onClose();
           });
       } catch (error) {

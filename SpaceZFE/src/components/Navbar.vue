@@ -8,11 +8,8 @@
       <span v-show="!logined" class="login" @click.stop="openModal">
         로그인</span
       >
-      <span v-show="logined" class="login" @click="openLogOut"
-        ><img
-          class="mypage"
-          :src="`http://localhost:8090/spaceZBE/resources/upload/img_0001.png`"
-      /></span>
+      <span v-show="logined" class="login" @click="openLogOut">
+        <img class="mypage" :src="`http://localhost:8090/spaceZBE/resources/upload/img_0001.png`"/></span>
       <!-- <span v-if="loggedIn" class="login" @click.stop="openModal">
         
       </span> -->
