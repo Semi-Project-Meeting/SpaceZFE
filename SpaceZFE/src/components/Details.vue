@@ -55,6 +55,36 @@
               원
             </p>
           </div>
+          <div class="mileageDiv">
+            <p class="price" style="margin-left: 20px">마일리지사용</p>
+            <input
+              class="mileage"
+              v-show="!useMileage"
+              type="number"
+              min="1"
+              v-model="mileage"
+            />
+            <span class="mileage" v-show="useMileage">{{ mileage }}</span>
+            <button
+              v-show="!useMileage"
+              class="mileageBtn"
+              @click="changeMileageState"
+            >
+              사용
+            </button>
+            <button
+              v-show="useMileage"
+              class="usedMileageBtn"
+              @click="changeMileageState"
+            >
+              취소
+            </button>
+          </div>
+          <div>
+            <p class="possibleMileage">
+              사용가능한 마일리지: {{ details.total_score }}점
+            </p>
+          </div>
           <p class="payRule">
             &#8251;오피스 예약은 후불제이며 선결제가 불가능합니다&#8251;
           </p>
@@ -90,6 +120,36 @@
           <p>{{ errMessage }}</p>
           <div class="priceDiv">
             <p class="price">가격 {{ nOfficePrice }}원</p>
+          </div>
+          <div class="mileageDiv">
+            <p class="price" style="margin-left: 20px">마일리지사용</p>
+            <input
+              class="mileage"
+              v-show="!useMileage"
+              type="number"
+              min="1"
+              v-model="mileage"
+            />
+            <span class="mileage" v-show="useMileage">{{ mileage }}</span>
+            <button
+              v-show="!useMileage"
+              class="mileageBtn"
+              @click="nchangeMileageState"
+            >
+              사용
+            </button>
+            <button
+              v-show="useMileage"
+              class="usedMileageBtn"
+              @click="nchangeMileageState"
+            >
+              취소
+            </button>
+          </div>
+          <div>
+            <p class="possibleMileage">
+              사용가능한 마일리지: {{ details.total_score }}점
+            </p>
           </div>
           <p class="payRule">
             &#8251;선결제 예약 시 보증금을 포함한 전 금액을 지불하고, 결재금액의
@@ -223,7 +283,10 @@ export default {
   },
   mounted() {
     fetch(
-      "http://localhost:8090/spaceZBE/spaceInfo?spaceId=" + useRoute().params.id
+      "http://localhost:8090/spaceZBE/spaceInfo?spaceId=" +
+        useRoute().params.id +
+        "&memberId=" +
+        localStorage.getItem("memberId")
     )
       .then((res) => res.json())
       .then((res) => {
@@ -269,7 +332,10 @@ export default {
 
     const getDetails = async () => {
       const res = await axios.get(
-        "http://localhost:8090/spaceZBE/spaceInfo?spaceId=" + route.params.id
+        "http://localhost:8090/spaceZBE/spaceInfo?spaceId=" +
+          route.params.id +
+          "&memberId=" +
+          localStorage.getItem("memberId")
       );
       details.value = { ...res.data };
       console.log(details.value);
@@ -319,6 +385,7 @@ export default {
           getDateDiff(endDate.value, startDate.value) *
           details.value.space.price;
         //가시성 좋게 1000단위 마다 ,찍는 로직 추가
+        originalPrice.value = total;
         officePrice.value = total;
         // .toString()
         // .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -336,6 +403,7 @@ export default {
         errMessage.value = "";
         total =
           (endDateTime.value - startDateTime.value) * details.value.space.price;
+        originalPrice.value = total;
         nOfficePrice.value = total;
         // .toString()
         // .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -355,6 +423,8 @@ export default {
       //   now + "-" + endDateTime.value + ":00",
       //   nOfficePrice.value
       // );
+      console.log(originalPrice.value);
+      console.log(nOfficePrice.value);
       IMP.init("imp76177137");
       IMP.request_pay(
         {
@@ -362,14 +432,14 @@ export default {
           pay_method: "card", // 기능 없음.
           merchant_uid: details.value.merchant_uid, // 상점에서 관리하는 주문 번호
           name: details.value.space.spaceName,
-          amount: details.value.space.price * 0.2, // 빌링키 발급과 함께 40원 결제승인을 시도합니다. price의 20%만 계산해서 넣는다. //후결제인 경우, 0으로 넣는다.
+          amount: originalPrice.value * 0.2, // 빌링키 발급과 함께 40원 결제승인을 시도합니다. price의 20%만 계산해서 넣는다. //후결제인 경우, 0으로 넣는다.
           customer_uid: localStorage.getItem("memberId"), // 필수 입력
           buyer_email: "",
           buyer_name: "",
           buyer_tel: "",
         },
         function (rsp) {
-          if (rsp.success)
+          if (rsp.success) {
             axios.post("http://localhost:8090/spaceZBE/reserve/insert", {
               imp_uid: rsp.imp_uid,
               prepay_uid: rsp.merchant_uid,
@@ -377,11 +447,15 @@ export default {
               companyId: details.value.space.companyId,
               payStatus: "003",
               price: nOfficePrice.value,
-              prepay: "002",
+              prepay: "001",
               spaceId: details.value.space.spaceId,
               startDate: now + " " + startDateTime.value + ":00",
               endDate: now + " " + endDateTime.value + ":00",
+              mileage: mileage.value,
             });
+            alert("예약에 성공하였습니다.");
+            window.location.reload(true);
+          }
         }
       );
     };
@@ -394,14 +468,14 @@ export default {
           pay_method: "card", // 기능 없음.
           merchant_uid: details.value.merchant_uid, // 상점에서 관리하는 주문 번호
           name: details.value.space.spaceName,
-          amount: details.value.space.price, // 빌링키 발급과 함께 40원 결제승인을 시도합니다. price의 20%만 계산해서 넣는다. //후결제인 경우, 0으로 넣는다.
+          amount: nOfficePrice.value, // 빌링키 발급과 함께 40원 결제승인을 시도합니다. price의 20%만 계산해서 넣는다. //후결제인 경우, 0으로 넣는다.
           customer_uid: localStorage.getItem("memberId"), // 필수 입력
           buyer_email: "",
           buyer_name: "",
           buyer_tel: "",
         },
         function (rsp) {
-          if (rsp.success)
+          if (rsp.success) {
             axios.post("http://localhost:8090/spaceZBE/reserve/insert", {
               imp_uid: rsp.imp_uid,
               prepay_uid: rsp.merchant_uid,
@@ -413,7 +487,11 @@ export default {
               spaceId: details.value.space.spaceId,
               startDate: now + " " + startDateTime.value + ":00",
               endDate: now + " " + endDateTime.value + ":00",
+              mileage: mileage.value,
             });
+            alert("예약에 성공하였습니다.");
+            window.location.reload(true);
+          }
         }
       );
     };
@@ -435,7 +513,7 @@ export default {
         },
         function (rsp) {
           console.log(officePrice.value);
-          if (rsp.success)
+          if (rsp.success) {
             axios.post("http://localhost:8090/spaceZBE/reserve/insert", {
               imp_uid: rsp.imp_uid,
               prepay_uid: rsp.merchant_uid,
@@ -447,7 +525,11 @@ export default {
               spaceId: details.value.space.spaceId,
               startDate: startDate.value + " " + "00:00",
               endDate: endDate.value + " " + "23:59",
+              mileage: mileage.value,
             });
+            alert("예약에 성공하였습니다.");
+            window.location.reload(true);
+          }
         }
       );
     };
@@ -481,6 +563,61 @@ export default {
       reviewClicked.value = false;
     };
 
+    //마일리지 사용 버튼
+    const mileage = ref();
+    const useMileage = ref(false);
+    const originalPrice = ref();
+
+    const changeMileageState = () => {
+      console.log(mileage.value);
+      console.log(officePrice.value);
+      console.log(details.value.total_score);
+      if (useMileage.value === false) {
+        if (officePrice.value === 0) {
+          alert("날짜를 먼저 선택해주세요.");
+        } else if (mileage.value > details.value.total_score) {
+          alert("사용가능한 마일리지를 초과하여 입력하였습니다.");
+        } else if (officePrice.value - mileage.value < 0) {
+          alert("총 가격을 초과하여 입력하였습니다.");
+        } else {
+          useMileage.value = true;
+          officePrice.value = officePrice.value - mileage.value;
+          details.value.total_score -= mileage.value;
+          console.log(officePrice.value);
+        }
+      } else {
+        useMileage.value = false;
+        officePrice.value = officePrice.value + mileage.value;
+        details.value.total_score += mileage.value;
+        console.log(officePrice.value);
+      }
+    };
+
+    const nchangeMileageState = () => {
+      console.log(mileage.value);
+      console.log(nOfficePrice.value);
+      console.log(details.value.total_score);
+      if (useMileage.value === false) {
+        if (nOfficePrice.value === 0) {
+          alert("날짜를 먼저 선택해주세요.");
+        } else if (mileage.value > details.value.total_score) {
+          alert("사용가능한 마일리지를 초과하여 입력하였습니다.");
+        } else if (nOfficePrice.value - mileage.value < 0) {
+          alert("총 가격을 초과하여 입력하였습니다.");
+        } else {
+          useMileage.value = true;
+          nOfficePrice.value = nOfficePrice.value - mileage.value;
+          details.value.total_score -= mileage.value;
+          console.log(nOfficePrice.value);
+        }
+      } else {
+        useMileage.value = false;
+        nOfficePrice.value = nOfficePrice.value + mileage.value;
+        details.value.total_score += mileage.value;
+        console.log(nOfficePrice.value);
+      }
+    };
+
     return {
       details,
       currentImg,
@@ -511,6 +648,11 @@ export default {
       directChangePic,
       rentOfficeCheck,
       preSubmit,
+      useMileage,
+      changeMileageState,
+      mileage,
+      nchangeMileageState,
+      originalPrice,
     };
   },
 };
@@ -586,6 +728,26 @@ button {
   color: blue;
   margin-right: 200px;
 }
+.mileageBtn {
+  width: 80px;
+  height: 50px;
+  border-radius: 20px;
+  font-size: 25px;
+  border: 1px solid skyblue;
+  background: skyblue;
+  color: blue;
+  margin: 8px 0px 0px -100px;
+}
+.usedMileageBtn {
+  width: 80px;
+  height: 50px;
+  border-radius: 20px;
+  font-size: 25px;
+  border: 1px solid gray;
+  background: gray;
+  color: white;
+  margin: 8px 0px 0px -100px;
+}
 
 iframe {
   width: 700px;
@@ -640,6 +802,17 @@ iframe {
   border-radius: 10px;
   margin-bottom: 80px;
 }
+.mileageDiv {
+  width: 600px;
+  height: 70px;
+  font-size: 25px;
+  word-spacing: 160px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-bottom: 80px;
+  display: flex;
+  justify-content: space-around;
+}
 .date {
   margin-top: 10px;
   border: 1px solid white;
@@ -655,9 +828,22 @@ iframe {
 .price {
   margin-top: 10px;
 }
+.possibleMileage {
+  font-size: 20px;
+  font-weight: 700;
+  margin: -70px 0px 30px 130px;
+}
+.mileage {
+  width: 100px;
+  height: 50px;
+  margin: 8px 0px 0px 0px;
+  border-radius: 10px;
+  border: 1px solid #b9bbb6;
+}
 .payRule {
   font-size: 20px;
-  margin-right: 300px;
+  margin-right: 190px;
+  margin-bottom: 20px;
 }
 .depositSubmit {
   width: 300px;
@@ -667,7 +853,7 @@ iframe {
   border: 1px solid skyblue;
   background: skyblue;
   color: blue;
-  margin-right: 20px;
+  margin-right: 40px;
 }
 .preSubmit {
   width: 300px;
