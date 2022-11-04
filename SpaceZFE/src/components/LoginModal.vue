@@ -69,6 +69,7 @@ export default {
               JSON.parse(res.request.response).member_id
             );
             onClose();
+            window.location.reload(true);
           });
       } catch (error) {
         console.log("error:", error);
