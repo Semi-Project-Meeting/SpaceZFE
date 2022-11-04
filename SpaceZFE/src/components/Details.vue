@@ -180,10 +180,8 @@
         <div class="locClicked" v-show="locClicked">
           {{ details.space.moreInfo }}
         </div>
-        <div class="locationClicked" v-show="locationClicked">
-          <!-- {{ details.space.location }}<br /> -->
-          <!-- <iframe :src="details.location">{{ details.location }} </iframe> -->
-          <!-- <div :id="mapContainer" style="width: 300px; height: 300px"></div> -->
+        <div class="locationClicked" v-if="locationClicked">
+          <KaKaoMap class="map" :options="mapOption" />
         </div>
         <div class="reviewClicked" v-show="reviewClicked">
           <div style="margin-top: 20px">
@@ -215,8 +213,33 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useRoute } from "vue-router";
+import KaKaoMap from "./KaKaoMapOne.vue";
 
 export default {
+  components: {
+    KaKaoMap,
+  },
+  data() {
+    return {
+      mapOption: {
+        center: {
+          lat: 33.450701,
+          lng: 126.570667,
+        },
+        level: 8,
+        location: null,
+      },
+    };
+  },
+  mounted() {
+    fetch(
+      "http://localhost:8090/spaceZBE/spaceInfo?spaceId=" + useRoute().params.id
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        this.mapOption.location = res.space.location;
+      });
+  },
   setup() {
     const details = ref({
       space: {},
