@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/home.vue";
 import Insert from "../pages/insert.vue";
+import InsertSpace from "../pages/insertSpace.vue";
 import Details from "../pages/detail/_id.vue";
 import Main from "../pages/main.vue";
 import SelectAll from "../pages/selectAll/_id.vue";
@@ -17,6 +18,11 @@ const router = createRouter({
       path: "/insert",
       name: "insert",
       component: Insert,
+    },
+    {
+      path: "/insertSpace",
+      name: "InsertSpace",
+      component: InsertSpace,
     },
     {
       path: "/detail/:id",
