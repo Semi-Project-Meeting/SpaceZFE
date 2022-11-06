@@ -5,6 +5,7 @@ import InsertSpace from "../pages/insertSpace.vue";
 import Details from "../pages/detail/_id.vue";
 import Main from "../pages/main.vue";
 import SelectAll from "../pages/selectAll/_id.vue";
+import SelectAllMap from "../pages/selectAll/selectAllMap.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -39,6 +40,11 @@ const router = createRouter({
       name: "SelectAll",
       component: SelectAll,
       props: true,
+    },
+    {
+      path: "/selectAll/selectAllMap",
+      name: "SelectAllMap",
+      component: SelectAllMap,
     },
   ],
 });
