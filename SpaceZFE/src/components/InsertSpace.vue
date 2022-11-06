@@ -1,13 +1,21 @@
 <template>
   <div>
-    <img
-      v-for="num in uploadImageFile.length"
-      :key="num"
-      class="popupImageItem"
-      :src="uploadImageFile[num - 1]"
-    />
-    <input multiple type="file" v-on:change="onFileSelected" :value="photos" />
-    <div class="outer">
+    <div class="left">
+      <img
+        v-for="num in uploadImageFile.length"
+        :key="num"
+        class="popupImageItem"
+        :src="uploadImageFile[num - 1]"
+      />
+      <input
+        v-if="dontShow"
+        multiple
+        type="file"
+        v-on:change="onFileSelected"
+        :value="photos"
+      />
+    </div>
+    <div class="righter">
       <h2>공간 등록</h2>
       <div class="form">
         <div class="innerform">
@@ -20,21 +28,29 @@
               @change="spaceTypeValue"
             >
               <option value="office">오피스</option>
-              <option value="desk">데스크 (1만원/시간)</option>
+              <option value="desk">
+                <p>데스크</p>
+                <br />
+                <p>(1만원/시간)</p>
+              </option>
               <option value="meetingRoom4">회의실 4인 (2만원/시간)</option>
               <option value="meetingRoom6">회의실 6인 (3만원/시간)</option>
               <option value="meetingRoom810">회의실 8~10인 (5만원/시간)</option>
               <option value="meetingRoom20">회의실 20인 (10만원/시간)</option>
             </select>
+            <div class="officeDiv" v-if="officeFee">
+              오피스 일별 이용료
+              <input
+                class="officeFee"
+                type="text"
+                v-model="officePrice"
+                @change="officePriceSet"
+              />
+            </div>
           </div>
           <input type="text" class="spaceName" v-model="spaceName" />
           <p>공간 정보</p>
           <input type="text" class="info" v-model="info" />
-
-          <div v-if="officeFee">
-            오피스 일별 이용료
-            <input type="text" v-model="officePrice" />
-          </div>
 
           <br />
           <p>공간소개</p>
@@ -62,6 +78,7 @@
 <script>
 import { ref } from "vue";
 import axios from "axios";
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
@@ -79,10 +96,14 @@ export default {
     const moreInfo = ref("");
     const spaceLoc = ref("");
     const phoneNum = ref(0);
+    const dontShow = ref(true);
+    const router = useRouter();
 
     const spaceTypeValue = () => {
       if (spaceTypePrice.value === "office") {
         officeFee.value = true;
+        // price.value = officePrice.value;
+        // console.log(price.value);
       } else if (spaceTypePrice.value === "desk") {
         price.value = 10000;
         type.value = "desk";
@@ -106,13 +127,16 @@ export default {
       }
     };
 
-    // const setPhotos = () => {
-    //   const form = new FormData();
-    //   photoFile =
-    // };
+    const officePriceSet = () => {
+      type.value = "office";
+      price.value = officePrice.value;
+    };
 
     const insertDone = async () => {
+      // console.log(price.value);
       const formData = new FormData();
+
+      formData.append("companyId", localStorage.getItem("companyId"));
       formData.append("spaceName", spaceName.value);
       formData.append("info", info.value);
       formData.append("moreInfo", moreInfo.value);
@@ -132,6 +156,10 @@ export default {
           },
         }
       );
+      alert("등록에 성공했습니다");
+      router.push({
+        name: "Main",
+      });
     };
 
     const onFileSelected = (e) => {
@@ -139,22 +167,15 @@ export default {
         uploadImageFile.value.push(URL.createObjectURL(e.target.files[i]));
         File.value.push(e.target.files[i]);
       }
-      //   uploadImageFile.value.push(URL.createObjectURL(e.target.files[1]));
-      //   uploadImageFile.value.push(URL.createObjectURL(e.target.files[2]));
-      //   uploadImageFile.value.push(URL.createObjectURL(e.target.files[3]));
-      console.log(e.target.files[0].name);
-      console.log(uploadImageFile);
+      dontShow.value = false;
     };
 
     return {
       spaceName,
-      spaceTypeValue,
       spaceTypePrice,
       officeFee,
       photos,
-      onFileSelected,
       uploadImageFile,
-      insertDone,
       price,
       type,
       info,
@@ -163,13 +184,27 @@ export default {
       phoneNum,
       moreInfo,
       File,
+      dontShow,
+      spaceTypeValue,
+      onFileSelected,
+      insertDone,
+      officePriceSet,
     };
   },
 };
 </script>
 
 <style scoped>
-.outer {
+.left {
+  left: 200px;
+  /* float: right; */
+  position: absolute;
+}
+img {
+  width: 300px;
+  height: 300px;
+}
+.righter {
   right: 200px;
   /* float: right; */
   position: absolute;
@@ -192,19 +227,17 @@ p {
   font-size: 25px;
 }
 .select {
-  width: 100px;
-  right: 200px;
+  width: 150px;
   float: right;
-  right: 30px;
   font-size: 20px;
+  align-items: left;
+  height: 400px;
 }
 .spaceType {
-  width: 110px;
+  width: 150px;
   height: 100px;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  word-wrap: break-word;
+  /* height: auto; */
+  white-space: normal;
 }
 #dropDownOptions {
   width: 100px;
@@ -224,5 +257,12 @@ p {
   background-color: blue;
   border: blue;
   color: white;
+}
+.officeDiv {
+  margin-top: 20px;
+  font-size: 15px;
+}
+.officeFee {
+  width: 100px;
 }
 </style>
