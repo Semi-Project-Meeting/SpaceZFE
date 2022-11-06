@@ -4,7 +4,11 @@
     <nav class="nav">
       <span class="search" @click.stop="openSearchModal">🔍</span>
       <router-link class="logo" :to="{ name: 'Home' }">SpaceZ</router-link>
-      <span class="locInsert" @click="moveToPage"> 장소등록</span>
+      <span v-if="member" class="locInsert" @click="movoeToPage">
+        장소등록</span
+      >
+      <span v-else-if="manager" class="locInsert"> 매니저 Space</span>
+      <span v-else-if="master" class="locInsert"> 마스터 Space</span>
       <span v-show="!logined" class="login" @click.stop="openModal">
         로그인</span
       >
@@ -39,13 +43,16 @@ export default {
     SearchModal,
     LogoutModal,
   },
-  setup(props, context) {
+  setup() {
     // const router = useRouter();
     const logined = ref("");
     const showModal = ref(false);
     const showLogoutModal = ref(false);
     const showSearchModal = ref(false);
     const router = useRouter();
+    var member = ref(false); // authority
+    var manager = ref(false); // authority
+    var master = ref(false); // authority
 
     const loginCheck = () => {
       if (localStorage.getItem("memberId")) {
@@ -56,16 +63,6 @@ export default {
     };
 
     loginCheck();
-
-    const moveToPage = () => {
-      if (!localStorage.getItem("memberId")) {
-        openModal();
-      } else if (localStorage.getItem("memberId")) {
-        router.push({
-          name: "InsertSpace",
-        });
-      }
-    };
 
     const openLogOut = () => {
       showLogoutModal.value = true;
@@ -80,7 +77,6 @@ export default {
     };
 
     const openModal = () => {
-      context.emit("onClose", showModal.value);
       showModal.value = true;
     };
 
@@ -89,18 +85,64 @@ export default {
       showLogoutModal.value = false;
     };
 
+    const movoeToPage = () => {
+      router.push({
+        name: "InsertSpace",
+      });
+    };
+
+    // authority 권한으로 버튼 구별
+    const memberAuthority = () => {
+      if (localStorage.getItem("authority") === "member") {
+        member.value = true;
+      } else {
+        member.value = false;
+      }
+    };
+    memberAuthority();
+
+    const managerAuthority = () => {
+      if (localStorage.getItem("authority") === "manager") {
+        manager.value = true;
+      } else {
+        manager.value = false;
+      }
+    };
+    managerAuthority();
+
+    const masterAuthority = () => {
+      if (localStorage.getItem("authority") === "master") {
+        master.value = true;
+      } else {
+        master.value = false;
+      }
+    };
+    masterAuthority();
+
+    console.log(master.value);
+    console.log(logined.value);
+    console.log(localStorage.getItem("authority"));
+    console.log(localStorage.getItem("authority") === "master");
+    console.log(localStorage.getItem("authority") === "member");
+
     return {
       showSearchModal,
+      showModal,
+      showLogoutModal,
+      member,
+      manager,
+      master,
       logined,
       loginCheck,
       openModal,
-      showModal,
       closeModal,
       openSearchModal,
       closeSearchModal,
       openLogOut,
-      showLogoutModal,
-      moveToPage,
+      memberAuthority,
+      managerAuthority,
+      masterAuthority,
+      movoeToPage,
     };
   },
 };
