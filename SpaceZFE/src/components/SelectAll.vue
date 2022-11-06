@@ -120,13 +120,13 @@ export default {
     };
 
     return {
-      getPlaces,
       places,
       optionClicked,
       spaceType,
       resultSplit,
-      sortSpace,
       filteredPlace,
+      getPlaces,
+      sortSpace,
       moveToPage,
     };
   },
@@ -149,6 +149,7 @@ export default {
 .img {
   width: 300px;
   height: 300px;
+  border-radius: 20px;
 }
 .spaceType {
   margin-top: 10px;
