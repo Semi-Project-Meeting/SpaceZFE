@@ -2,17 +2,39 @@
 <template>
   <nav>
     <nav class="nav">
-      <span class="search" @click.stop="openSearchModal">🔍</span>
-      <router-link class="logo" :to="{ name: 'Home' }">SpaceZ</router-link>
-      <span v-if="member" class="locInsert" @click="movoeToPage">
+      <span class="search" @click.stop="openSearchModal" style="cursor: pointer"
+        >🔍</span
+      >
+      <router-link class="logo" :to="{ name: 'Home' }" style="cursor: pointer"
+        >SpaceZ</router-link
+      >
+      <span
+        v-if="member"
+        class="locInsert"
+        @click="movoeToPage"
+        style="cursor: pointer"
+      >
         장소등록</span
       >
-      <span v-else-if="manager" class="locInsert"> 매니저 Space</span>
-      <span v-else-if="master" class="locInsert"> 마스터 Space</span>
-      <span v-show="!logined" class="login" @click.stop="openModal">
+      <span v-else-if="manager" class="locInsert" style="cursor: pointer">
+        매니저 Space</span
+      >
+      <span v-else-if="master" class="locInsert" style="cursor: pointer">
+        마스터 Space</span
+      >
+      <span
+        v-show="!logined"
+        class="login"
+        @click.stop="openModal"
+        style="cursor: pointer"
+      >
         로그인</span
       >
-      <span v-show="logined" class="login" @click="openLogOut"
+      <span
+        v-show="logined"
+        class="login"
+        @click="openLogOut"
+        style="cursor: pointer"
         ><img
           class="mypage"
           :src="`http://localhost:8090/spaceZBE/resources/upload/img_0001.png`"
