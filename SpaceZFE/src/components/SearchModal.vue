@@ -24,9 +24,9 @@
         <select class="button" v-model="time" @change="showTime">
           <option v-for="num in 24" :key="num.id">{{ num }}:00</option>
         </select>
-        <!-- <button class="show" v-if="showButtonRef" @click="getPlaces">
-          미리보기
-        </button> -->
+        <button class="show" :to="{ name: 'SelectAllMap' }">
+          지도기반으로 검색하기
+        </button>
         <button
           class="show"
           v-if="showButtonRef"
