@@ -49,6 +49,8 @@ export default {
     const store = useStore();
 
     const memberId = ref("");
+    const companyId = ref("");
+    const authority = ref("");
 
     const login = async () => {
       try {
@@ -68,8 +70,16 @@ export default {
               "memberId",
               JSON.parse(res.request.response).member_id
             );
-            onClose();
+            localStorage.setItem(
+              "companyId",
+              JSON.parse(res.request.response).company_id
+            );
+            localStorage.setItem(
+              "authority",
+              JSON.parse(res.request.response).authority
+            );
             window.location.reload(true);
+            onClose();
           });
       } catch (error) {
         console.log("error:", error);
@@ -91,6 +101,8 @@ export default {
       email,
       pw,
       memberId,
+      companyId,
+      authority,
     };
   },
 };

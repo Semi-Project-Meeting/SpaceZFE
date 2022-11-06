@@ -23,6 +23,8 @@ export default {
   setup(props, { emit }) {
     const logout = () => {
       localStorage.removeItem("memberId");
+      localStorage.removeItem("companyId");
+      localStorage.removeItem("authority");
       window.location.reload(true);
       onClose();
     };
