@@ -103,9 +103,7 @@
                 {{ num1 }}시
               </option>
             </select>
-            <label style="margin-left: 5px; font-size: 20px"
-              >반납시각:{{ now }}-</label
-            >
+            <label style="margin-left: 5px; font-size: 20px">반납시각:{{ now }}-</label>
             <select
               class="time"
               v-model="endDateTime"

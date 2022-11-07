@@ -86,7 +86,7 @@ export default {
     //디비에 검색 이름과 날짜(선택)를 보내고 온 결과를 저장 하고 더보기 버튼 활성화
     const getPlaces = async () => {
       const res = await axios
-        .post("http://localhost:8080/spaceZBE/search", {
+        .post("http://localhost:8090/spaceZBE/search", {
           searchWord: searchPlace.value,
           searchTime: date.value + " " + time.value + ":00",
         })
