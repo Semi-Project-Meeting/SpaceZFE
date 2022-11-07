@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div class="mapCover" v-if="isShow">
+      <button @click="viewMap" class="closeMap">X</button>
+      <!-- 맵이 오는곳 -->
+      <div class="map">
+        <MapView :options="mapInfo"/>
+      </div>
+    </div>
+    <button @click="viewMap" class="viewWithMap">지도에서 보기</button>
     <div class="filter">
       검색어 결과 : {{ resultSplit[0] }} <br />
       검색 날짜 : {{ resultSplit[1] }} - {{ resultSplit[2] }}
@@ -10,7 +18,7 @@
       v-model="spaceType"
       @change="sortSpace"
     >
-      <option value="전체" selected>전체</option>
+      <option :value="null">전체</option>
       <option value="오피스">오피스</option>
       <option value="데스크">데스크</option>
       <option value="회의실">회의실</option>
@@ -69,8 +77,24 @@ import { useRouter, useRoute } from "vue-router";
 import axios from "axios";
 import { ref } from "vue";
 import _ from "lodash";
+import MapView from "./KaKaoMapAll.vue";
 
-export default {
+export default {  components: {
+    MapView,
+  },
+  data: () => {
+    return {
+      mapInfo: {
+        vos: null
+      },
+      isShow:false
+    };
+  },
+  methods: {
+    viewMap() {
+      this.isShow = !this.isShow;
+    },
+  },
   setup() {
     const places = ref({});
     const filteredPlace = ref({});
@@ -130,6 +154,17 @@ export default {
       moveToPage,
     };
   },
+  mounted() {
+    console.log(typeof(useRoute().params.id));
+    const arr = useRoute().params.id.split(" ");
+    fetch(
+      "http://localhost:8090/spaceZBE/search?searchWord=" + arr[0] + "&searchTime=" + arr[1] + " " + arr[2]
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        this.mapInfo.vos = res.vos;
+      });
+  },
 };
 </script>
 
@@ -161,5 +196,38 @@ export default {
 .placeLeng {
   margin-top: 20px;
   font-size: 20px;
+}
+.viewWithMap {
+  border-radius: 10px;
+  border-color: black;
+  background-color: white;
+}
+
+.viewWithMap:hover {
+  background-color: black;
+  color: white;
+}
+
+.mapCover{
+  width: 80%;
+  height: 80%;
+  border: 1px;
+  background-color: transparent;
+  position:fixed;
+  padding:20px;
+  z-index: 2;
+}
+.map {
+  background-color: white;
+  width:95%;
+  height:95%;
+  /* margin:; */
+  padding:0px;
+  border: 1px solid black;
+}
+.closeMap {
+  float:right;
+  background-color: transparent;
+  border:0;
 }
 </style>

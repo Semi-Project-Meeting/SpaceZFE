@@ -102,7 +102,7 @@ export default {
       // );
       // places.value = res1.data;
       const res = await axios
-        .post("http://localhost:8080/spaceZBE/search", {
+        .post("http://localhost:8090/spaceZBE/search", {
           searchWord: searchPlace.value,
           searchTime: date.value + " " + time.value + ":00",
         })
