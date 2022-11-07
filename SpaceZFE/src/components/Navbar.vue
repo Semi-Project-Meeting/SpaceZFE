@@ -16,7 +16,12 @@
       >
         장소등록</span
       >
-      <span v-else-if="manager" class="locInsert" style="cursor: pointer">
+      <span
+        v-else-if="manager"
+        class="locInsert"
+        style="cursor: pointer"
+        @click="movoeToPage"
+      >
         매니저 Space</span
       >
       <span v-else-if="master" class="locInsert" style="cursor: pointer">
