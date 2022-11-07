@@ -6,20 +6,39 @@
       <span class="nar2">1인 데스크 부터 20인 대형 사무실 까지</span>
       <span class="nar3">모두를 위한 임대 서비스</span>
       <span class="nar5"><b>SpaceZ</b></span>
-      <router-link class="nar4" :to="{ name: 'Main' }">시작하기 </router-link>
+      <span class="nar4" @click="moveToPage">시작하기 </span>
     </div>
+    <LoginModal v-if="showModal" @close="closeModal" />
   </div>
 </template>
 
 <script>
-import { useStore } from "vuex";
+import LoginModal from "@/components/LoginModal.vue";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+
 export default {
+  components: {
+    LoginModal,
+  },
   setup() {
-    const store = useStore();
+    const showModal = ref(false);
+    const router = useRouter();
 
-    console.log(store.state.memberId);
+    const moveToPage = () => {
+      if (localStorage.getItem("memberId")) {
+        router.push({
+          name: "Main",
+        });
+      } else {
+        showModal.value = true;
+      }
+    };
 
-    return {};
+    const closeModal = () => {
+      showModal.value = false;
+    };
+    return { showModal, moveToPage, closeModal };
   },
 };
 </script>
@@ -50,7 +69,7 @@ export default {
   color: rgba(0, 0, 0, 1);
   position: absolute;
   top: 306px;
-  left: 226px;
+  left: 240px;
   font-family: Inter;
   font-weight: Light;
   font-size: 40px;
@@ -62,7 +81,7 @@ export default {
   color: rgba(0, 25, 255, 1);
   position: absolute;
   top: 206px;
-  left: 244px;
+  left: 230px;
   font-weight: bold;
   font-style: italic;
   font-family: Inter;

@@ -2,15 +2,40 @@
 <template>
   <nav>
     <nav class="nav">
-      <span class="search" @click.stop="openSearchModal">🔍</span>
-      <router-link class="logo" :to="{ name: 'Home' }">SpaceZ</router-link>
-      <span class="locInsert"> 장소등록</span>
-      <span v-show="!logined" class="login" @click.stop="openModal">
+      <span class="search" @click.stop="openSearchModal" style="cursor: pointer"
+        >🔍</span
+      >
+      <router-link class="logo" :to="{ name: 'Home' }" style="cursor: pointer"
+        >SpaceZ</router-link
+      >
+      <span
+        v-if="member"
+        class="locInsert"
+        @click="movoeToPage"
+        style="cursor: pointer"
+      >
+        장소등록</span
+      >
+      <span v-else-if="manager" class="locInsert" style="cursor: pointer">
+        매니저 Space</span
+      >
+      <span v-else-if="master" class="locInsert" style="cursor: pointer">
+        마스터 Space</span
+      >
+      <span
+        v-show="!logined"
+        class="login"
+        @click.stop="openModal"
+        style="cursor: pointer"
+      >
         로그인</span
       >
-      <!-- <span v-show="logined" class="login" @click="openLogOut"> -->
-      <span v-show="logined" class="login" @click="handle_toggle">
-        <img
+      <span
+        v-show="logined"
+        class="login"
+        @click="openLogOut"
+        style="cursor: pointer"
+        ><img
           class="mypage"
           :src="`http://localhost:8090/spaceZBE/resources/upload/img_0001.png`"
         />
@@ -31,6 +56,7 @@ import SearchModal from "@/components/SearchModal.vue";
 import Modal from "@/components/LoginModal.vue";
 import { ref } from "vue";
 import LogoutModal from "@/components/LogoutModal.vue";
+import { useRouter } from "vue-router";
 
 export default {
   components: {
@@ -44,6 +70,10 @@ export default {
     const showModal = ref(false);
     const showLogoutModal = ref(false);
     const showSearchModal = ref(false);
+    const router = useRouter();
+    var member = ref(false); // authority
+    var manager = ref(false); // authority
+    var master = ref(false); // authority
 
     const loginCheck = () => {
       if (localStorage.getItem("memberId")) {
@@ -76,17 +106,64 @@ export default {
       showLogoutModal.value = false;
     };
 
+    const movoeToPage = () => {
+      router.push({
+        name: "InsertSpace",
+      });
+    };
+
+    // authority 권한으로 버튼 구별
+    const memberAuthority = () => {
+      if (localStorage.getItem("authority") === "member") {
+        member.value = true;
+      } else {
+        member.value = false;
+      }
+    };
+    memberAuthority();
+
+    const managerAuthority = () => {
+      if (localStorage.getItem("authority") === "manager") {
+        manager.value = true;
+      } else {
+        manager.value = false;
+      }
+    };
+    managerAuthority();
+
+    const masterAuthority = () => {
+      if (localStorage.getItem("authority") === "master") {
+        master.value = true;
+      } else {
+        master.value = false;
+      }
+    };
+    masterAuthority();
+
+    console.log(master.value);
+    console.log(logined.value);
+    console.log(localStorage.getItem("authority"));
+    console.log(localStorage.getItem("authority") === "master");
+    console.log(localStorage.getItem("authority") === "member");
+
     return {
       showSearchModal,
+      showModal,
+      showLogoutModal,
+      member,
+      manager,
+      master,
       logined,
       loginCheck,
       openModal,
-      showModal,
       closeModal,
       openSearchModal,
       closeSearchModal,
       openLogOut,
-      showLogoutModal,
+      memberAuthority,
+      managerAuthority,
+      masterAuthority,
+      movoeToPage,
     };
   },
 };

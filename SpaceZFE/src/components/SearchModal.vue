@@ -24,9 +24,9 @@
         <select class="button" v-model="time" @change="showTime">
           <option v-for="num in 24" :key="num.id">{{ num }}:00</option>
         </select>
-        <!-- <button class="show" v-if="showButtonRef" @click="getPlaces">
-          미리보기
-        </button> -->
+        <button class="show" :to="{ name: 'SelectAllMap' }">
+          지도기반으로 검색하기
+        </button>
         <button
           class="show"
           v-if="showButtonRef"
@@ -59,22 +59,10 @@ import { ref, watch } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 import { getCurrentInstance } from "vue";
-// import SelectAll from "@/components/SelectAll.vue";
-// import { useStore } from "vuex";
 
 export default {
-  // components: {
-  //   SelectAll,
-  // },
   setup() {
-    // const store = useStore();
-    // console.log(store.state);
     const places = ref([]);
-
-    // const storing = () => {
-    //   store.state = { ...places.value };
-    // };
-    // storing();
 
     const searchPlace = ref("");
 
@@ -97,10 +85,6 @@ export default {
 
     //디비에 검색 이름과 날짜(선택)를 보내고 온 결과를 저장 하고 더보기 버튼 활성화
     const getPlaces = async () => {
-      // const res1 = await axios.get(
-      //   `http://localhost:8090/spaceZBE/search?spaceName_like=${searchPlace.value}`
-      // );
-      // places.value = res1.data;
       const res = await axios
         .post("http://localhost:8090/spaceZBE/search", {
           searchWord: searchPlace.value,
@@ -114,7 +98,6 @@ export default {
     };
 
     const searchingPlace = async () => {
-      // console.log(searchPlace.value);
       let days = "";
 
       if (date.value && time.value) {
@@ -148,13 +131,16 @@ export default {
     const moveToPage = (placeId) => {
       console.log(placeId);
       onClose();
-      // //   router.push("/detail/" + placeId);
-      router.push({
-        name: "Details",
-        params: {
-          id: placeId,
-        },
-      });
+      router
+        .push({
+          name: "Details",
+          params: {
+            id: placeId,
+          },
+        })
+        .then(() => {
+          window.location.reload(true);
+        });
     };
 
     //검색결과 더보기 클릭시 모든 검색 결과가 나오도록 출력하는 함수
@@ -183,19 +169,19 @@ export default {
     return {
       searchPlace,
       places,
+      showButtonRef,
       date,
       time,
       showTimeTag,
+      showMore,
       showDateTag,
       showTime,
       showDate,
       moveToPage,
       moveToSelectAll,
-      showButtonRef,
       showButton,
       getPlaces,
       searchingPlace,
-      showMore,
       // store,
     };
   },

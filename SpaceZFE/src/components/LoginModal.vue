@@ -49,6 +49,8 @@ export default {
     const store = useStore();
 
     const memberId = ref("");
+    const companyId = ref("");
+    const authority = ref("");
 
     const login = async () => {
       try {
@@ -67,6 +69,14 @@ export default {
             localStorage.setItem(
               "memberId",
               JSON.parse(res.request.response).member_id
+            );
+            localStorage.setItem(
+              "companyId",
+              JSON.parse(res.request.response).company_id
+            );
+            localStorage.setItem(
+              "authority",
+              JSON.parse(res.request.response).authority
             );
             window.location.reload(true);
             onClose();
@@ -91,6 +101,8 @@ export default {
       email,
       pw,
       memberId,
+      companyId,
+      authority,
     };
   },
 };

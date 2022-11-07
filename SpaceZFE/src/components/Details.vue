@@ -56,14 +56,34 @@
             </p>
           </div>
           <div class="mileageDiv">
-            <p class="price" style="margin-left:20px;">마일리지사용</p>
-            <input class="mileage" v-show="!useMileage" type="number" min="1" v-model="mileage"/>
-            <span class="mileage" v-show="useMileage">{{mileage}}</span>
-            <button v-show="!useMileage" class="mileageBtn" @click="changeMileageState">사용</button>
-            <button v-show="useMileage" class="usedMileageBtn" @click="changeMileageState">취소</button>
+            <p class="price" style="margin-left: 20px">마일리지사용</p>
+            <input
+              class="mileage"
+              v-show="!useMileage"
+              type="number"
+              min="1"
+              v-model="mileage"
+            />
+            <span class="mileage" v-show="useMileage">{{ mileage }}</span>
+            <button
+              v-show="!useMileage"
+              class="mileageBtn"
+              @click="changeMileageState"
+            >
+              사용
+            </button>
+            <button
+              v-show="useMileage"
+              class="usedMileageBtn"
+              @click="changeMileageState"
+            >
+              취소
+            </button>
           </div>
           <div>
-            <p class="possibleMileage">사용가능한 마일리지: {{ details.total_score }}점</p>
+            <p class="possibleMileage">
+              사용가능한 마일리지: {{ details.total_score }}점
+            </p>
           </div>
           <p class="payRule">
             &#8251;오피스 예약은 후불제이며 선결제가 불가능합니다&#8251;
@@ -100,14 +120,34 @@
             <p class="price">가격 {{ nOfficePrice }}원</p>
           </div>
           <div class="mileageDiv">
-            <p class="price" style="margin-left:20px;">마일리지사용</p>
-            <input class="mileage" v-show="!useMileage" type="number" min="1" v-model="mileage"/>
-            <span class="mileage" v-show="useMileage">{{mileage}}</span>
-            <button v-show="!useMileage" class="mileageBtn" @click="nchangeMileageState">사용</button>
-            <button v-show="useMileage" class="usedMileageBtn" @click="nchangeMileageState">취소</button>
+            <p class="price" style="margin-left: 20px">마일리지사용</p>
+            <input
+              class="mileage"
+              v-show="!useMileage"
+              type="number"
+              min="1"
+              v-model="mileage"
+            />
+            <span class="mileage" v-show="useMileage">{{ mileage }}</span>
+            <button
+              v-show="!useMileage"
+              class="mileageBtn"
+              @click="nchangeMileageState"
+            >
+              사용
+            </button>
+            <button
+              v-show="useMileage"
+              class="usedMileageBtn"
+              @click="nchangeMileageState"
+            >
+              취소
+            </button>
           </div>
           <div>
-            <p class="possibleMileage">사용가능한 마일리지: {{ details.total_score }}점</p>
+            <p class="possibleMileage">
+              사용가능한 마일리지: {{ details.total_score }}점
+            </p>
           </div>
           <p class="payRule">
             &#8251;선결제 예약 시 보증금을 포함한 전 금액을 지불하고, 결재금액의
@@ -241,7 +281,10 @@ export default {
   },
   mounted() {
     fetch(
-      "http://localhost:8090/spaceZBE/spaceInfo?spaceId=" + useRoute().params.id + "&memberId="+ localStorage.getItem("memberId")
+      "http://localhost:8090/spaceZBE/spaceInfo?spaceId=" +
+        useRoute().params.id +
+        "&memberId=" +
+        localStorage.getItem("memberId")
     )
       .then((res) => res.json())
       .then((res) => {
@@ -287,7 +330,10 @@ export default {
 
     const getDetails = async () => {
       const res = await axios.get(
-        "http://localhost:8090/spaceZBE/spaceInfo?spaceId=" + route.params.id + "&memberId="+ localStorage.getItem("memberId")
+        "http://localhost:8090/spaceZBE/spaceInfo?spaceId=" +
+          route.params.id +
+          "&memberId=" +
+          localStorage.getItem("memberId")
       );
       details.value = { ...res.data };
       console.log(details.value);
@@ -403,7 +449,7 @@ export default {
               spaceId: details.value.space.spaceId,
               startDate: now + " " + startDateTime.value + ":00",
               endDate: now + " " + endDateTime.value + ":00",
-              mileage: mileage.value
+              mileage: mileage.value,
             });
             alert("예약에 성공하였습니다.");
             window.location.reload(true);
@@ -427,7 +473,7 @@ export default {
           buyer_tel: "",
         },
         function (rsp) {
-          if (rsp.success){
+          if (rsp.success) {
             axios.post("http://localhost:8090/spaceZBE/reserve/insert", {
               imp_uid: rsp.imp_uid,
               prepay_uid: rsp.merchant_uid,
@@ -439,7 +485,7 @@ export default {
               spaceId: details.value.space.spaceId,
               startDate: now + " " + startDateTime.value + ":00",
               endDate: now + " " + endDateTime.value + ":00",
-              mileage: mileage.value
+              mileage: mileage.value,
             });
             alert("예약에 성공하였습니다.");
             window.location.reload(true);
@@ -477,7 +523,7 @@ export default {
               spaceId: details.value.space.spaceId,
               startDate: startDate.value + " " + "00:00",
               endDate: endDate.value + " " + "23:59",
-              mileage: mileage.value
+              mileage: mileage.value,
             });
             alert("예약에 성공하였습니다.");
             window.location.reload(true);
@@ -523,23 +569,23 @@ export default {
     const changeMileageState = () => {
       console.log(mileage.value);
       console.log(officePrice.value);
-      console.log(details.value.total_score);  
-      if(useMileage.value === false){
-        if(officePrice.value===0){
+      console.log(details.value.total_score);
+      if (useMileage.value === false) {
+        if (officePrice.value === 0) {
           alert("날짜를 먼저 선택해주세요.");
-        } else if(mileage.value > details.value.total_score){
+        } else if (mileage.value > details.value.total_score) {
           alert("사용가능한 마일리지를 초과하여 입력하였습니다.");
-        } else if(officePrice.value-mileage.value<0){
+        } else if (officePrice.value - mileage.value < 0) {
           alert("총 가격을 초과하여 입력하였습니다.");
-        } else{
-            useMileage.value = true;
-            officePrice.value = officePrice.value-mileage.value;
-            details.value.total_score -= mileage.value;
-            console.log(officePrice.value);
+        } else {
+          useMileage.value = true;
+          officePrice.value = officePrice.value - mileage.value;
+          details.value.total_score -= mileage.value;
+          console.log(officePrice.value);
         }
-      } else{
+      } else {
         useMileage.value = false;
-        officePrice.value = officePrice.value+mileage.value;
+        officePrice.value = officePrice.value + mileage.value;
         details.value.total_score += mileage.value;
         console.log(officePrice.value);
       }
@@ -548,28 +594,27 @@ export default {
     const nchangeMileageState = () => {
       console.log(mileage.value);
       console.log(nOfficePrice.value);
-      console.log(details.value.total_score);  
-      if(useMileage.value === false){
-        if(nOfficePrice.value===0){
+      console.log(details.value.total_score);
+      if (useMileage.value === false) {
+        if (nOfficePrice.value === 0) {
           alert("날짜를 먼저 선택해주세요.");
-        } else if(mileage.value > details.value.total_score){
+        } else if (mileage.value > details.value.total_score) {
           alert("사용가능한 마일리지를 초과하여 입력하였습니다.");
-        } else if(nOfficePrice.value-mileage.value<0){
+        } else if (nOfficePrice.value - mileage.value < 0) {
           alert("총 가격을 초과하여 입력하였습니다.");
-        } else{
-            useMileage.value = true;
-            nOfficePrice.value = nOfficePrice.value-mileage.value;
-            details.value.total_score -= mileage.value;
-            console.log(nOfficePrice.value);
+        } else {
+          useMileage.value = true;
+          nOfficePrice.value = nOfficePrice.value - mileage.value;
+          details.value.total_score -= mileage.value;
+          console.log(nOfficePrice.value);
         }
-      } else{
+      } else {
         useMileage.value = false;
-        nOfficePrice.value = nOfficePrice.value+mileage.value;
+        nOfficePrice.value = nOfficePrice.value + mileage.value;
         details.value.total_score += mileage.value;
         console.log(nOfficePrice.value);
       }
     };
-    
 
     return {
       details,
@@ -786,12 +831,12 @@ iframe {
   font-weight: 700;
   margin: -70px 0px 30px 130px;
 }
-.mileage{
+.mileage {
   width: 100px;
   height: 50px;
   margin: 8px 0px 0px 0px;
   border-radius: 10px;
-  border : 1px solid 	#B9BBB6;
+  border: 1px solid #b9bbb6;
 }
 .payRule {
   font-size: 20px;

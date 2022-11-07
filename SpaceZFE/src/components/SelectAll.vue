@@ -144,13 +144,13 @@ export default {  components: {
     };
 
     return {
-      getPlaces,
       places,
       optionClicked,
       spaceType,
       resultSplit,
-      sortSpace,
       filteredPlace,
+      getPlaces,
+      sortSpace,
       moveToPage,
     };
   },
@@ -184,6 +184,7 @@ export default {  components: {
 .img {
   width: 300px;
   height: 300px;
+  border-radius: 20px;
 }
 .spaceType {
   margin-top: 10px;
