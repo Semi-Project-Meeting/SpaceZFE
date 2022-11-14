@@ -43,10 +43,9 @@
         ><img
           class="mypage"
           :src="`http://localhost:8090/spaceZBE/resources/upload/img_0001.png`"
-      /></span>
-      <!-- <span v-if="loggedIn" class="login" @click.stop="openModal">
-        
-      </span> -->
+        />
+      </span>
+      <!-- <span v-if="loggedIn" class="login" @click.stop="openModal"></span> -->
       <br />
     </nav>
     <hr />
@@ -57,7 +56,7 @@
 </template>
 
 <script>
-// import { useRouter } from "vue-router";
+// import { 901.2useRouter } from "vue-router";
 import SearchModal from "@/components/SearchModal.vue";
 import Modal from "@/components/LoginModal.vue";
 import { ref } from "vue";
