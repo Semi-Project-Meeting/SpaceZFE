@@ -6,7 +6,7 @@
         >🔍</span
       >
       <router-link class="logo" :to="{ name: 'Home' }" style="cursor: pointer"
-        >SpaceZ</router-link
+        >SPACEZ</router-link
       >
       <span
         v-if="member"
@@ -40,15 +40,13 @@
         class="login"
         @click="openLogOut"
         style="cursor: pointer"
-        ><img
-          class="mypage"
-          :src="`http://localhost:8090/spaceZBE/resources/upload/img_0001.png`"
-        />
+        ><img class="mypage" src="../assets/profile.png" />
+        <!-- :src="`http://localhost:8090/spaceZBE/resources/upload/img_0001.png`" -->
       </span>
       <!-- <span v-if="loggedIn" class="login" @click.stop="openModal"></span> -->
       <br />
     </nav>
-    <hr />
+    <hr style="margin-bottom: 0" />
     <LogoutModal v-if="showLogoutModal" @close="closeModal" />
     <SearchModal v-if="showSearchModal" @close="closeSearchModal" />
     <Modal v-if="showModal" @close="closeModal" />
@@ -210,12 +208,11 @@ export default {
 }
 .logo {
   width: 300px;
-  color: rgba(0, 25, 255, 1);
+  color: rgb(4, 20, 97, 1);
   position: absolute;
   top: 22px;
   left: 60px;
-  font-style: italic;
-  font-weight: Bold;
+  font-weight: 900;
   font-size: 60px;
   opacity: 1;
   text-align: left;

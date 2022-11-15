@@ -1,39 +1,61 @@
 // eslint-disable-next-line
 <template>
-  <div>
-    <div class="outer">
-      <h2>회원가입</h2>
-      <div class="form">
-        <div class="innerform">
-          <p>이메일</p>
-          <input type="email" name="email" v-model="email" />
-          <button class="certification" @click="sendCerti">
-            인증번호 보내기
-          </button>
-          <br />
-          <p>인증번호 입력</p>
-          <input type="number" name="emailCerificate" v-model="emailCerti" />
-          <button class="certification" @click="checkCerti">
-            {{ checkButton }}
-          </button>
-          <br />
-          <p>비밀번호</p>
-          <input
-            type="password"
-            name="password1"
-            v-model="password"
-            @change="pwLengChek"
-          />{{ pwlengthCheck }}
-          <br />
-          <p>비밀번호 확인</p>
-          <input type="password" name="password2" v-model="pwCheck" />
-          <br />
-          <p>닉네임</p>
-          <input type="tel" name="nickname" v-model="nickname" />
-          <br />
-          {{ err
-          }}<button class="insertOK" @click="insertDone">가입완료</button>
-        </div>
+  <div class="side">
+    <img src="@/assets/spacezlogo.png" />
+  </div>
+  <div class="outer">
+    <h1><b style="color: rgb(4, 20, 97, 1)">회원가입</b></h1>
+    <div class="form">
+      <div class="innerform">
+        <p>이메일<a style="color: rgba(255, 59, 59, 1)">*</a></p>
+        <input
+          type="email"
+          name="email"
+          v-model="email"
+          placeholder="이메일 입력"
+        />
+        <button class="certification" @click="sendCerti">
+          인증번호 보내기
+        </button>
+        <br />
+        <p>인증번호<a style="color: rgba(255, 59, 59, 1)">*</a></p>
+        <input
+          class="email"
+          type="number"
+          name="emailCerificate"
+          v-model="emailCerti"
+          placeholder="인증번호 입력"
+        />
+        <button class="certification1" @click="checkCerti">
+          {{ checkButton }}
+        </button>
+        <br />
+        <p>비밀번호<a style="color: rgba(255, 59, 59, 1)">*</a></p>
+        <input
+          type="password"
+          name="password1"
+          v-model="password"
+          @change="pwLengChek"
+          placeholder="비밀번호"
+          style="margin-bottom: 2%"
+        />{{ pwlengthCheck }}
+        <br />
+        <input
+          type="password"
+          name="password2"
+          v-model="pwCheck"
+          placeholder="비밀번호 확인"
+        />
+        <br />
+        <p>닉네임<a style="color: rgba(255, 59, 59, 1)">*</a></p>
+        <input
+          type="tel"
+          name="nickname"
+          v-model="nickname"
+          placeholder="닉네임"
+        />
+        <br />
+        {{ err }}<button class="insertOK" @click="insertDone">가입완료</button>
       </div>
     </div>
   </div>
@@ -134,54 +156,90 @@ export default {
 </script>
 
 <style scoped>
+html,
+body {
+  height: 100%;
+  overflow: no height;
+}
+.side {
+  width: 45%;
+  height: 54.2vmax;
+  /* position: absolute; */
+  text-align: center;
+  background-color: rgb(4, 20, 97, 1);
+  float: left;
+}
+img {
+  margin-top: 10%;
+}
 .outer {
-  right: 200px;
+  width: 39%;
+  height: 100%;
+  margin-left: 1%;
+  margin-top: 5%;
+  margin-right: 10%;
   float: right;
-  position: absolute;
 }
 .form {
-  width: 600px;
-  height: 700px;
+  width: 100%;
+  height: 100%;
   margin-top: 20px;
-  border: 1px solid black;
+  margin-bottom: 20%;
   border-radius: 10px;
+  border: 1px solid silver;
 }
 .innerform {
-  padding: 20px;
+  padding-left: 40px;
+  padding-bottom: 40px;
 }
 input {
-  width: 300px;
-  height: 50px;
+  width: 20vw;
+  height: 6vh;
+  border-radius: 10px;
+  border: 1px solid silver;
+}
+.email {
+  width: 10vw;
 }
 p {
-  font-size: 25px;
+  font-size: 3vh;
+  margin-bottom: 0;
+  margin-top: 5%;
 }
 .certification {
-  width: 150px;
+  width: fit-content;
   height: 40px;
-  margin-left: 50px;
+  margin-left: 10px;
   margin-right: 50px;
-  border-radius: 15px;
+  border-radius: 10px;
+  border: 1px solid silver;
   background: white;
-  opacity: 0.5;
 }
+.certification1 {
+  width: 80px;
+  height: 40px;
+  margin-left: 10px;
+  margin-right: 50px;
+  border-radius: 10px;
+  border: 1px solid silver;
+  background: white;
+}
+
 .certification:hover {
-  opacity: 1;
+  border: 1px solid gray;
 }
 .insertOK {
-  margin-left: 300px;
-  margin-top: 60px;
-  width: 250px;
-  height: 50px;
-  border-radius: 30px;
-  background-color: white;
-  border: white;
-  color: blue;
-  font-size: 30px;
+  margin-top: 5%;
+  width: 500px;
+  height: 6vh;
+  border-radius: 10px;
+  background-color: rgba(82, 113, 255, 1);
+  border: rgba(82, 113, 255, 1);
+  color: white;
+  font-size: 20px;
 }
 .insertOK:hover {
   background-color: blue;
   border: blue;
-  color: white;
 }
 </style>

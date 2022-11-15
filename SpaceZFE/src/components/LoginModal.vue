@@ -1,6 +1,6 @@
 <template>
   <Modal>
-    <template v-slot:title> 로그인 </template>
+    <template v-slot:title><b>SPACEZ</b> </template>
     <template v-slot:body>
       <div class="loginform">
         <input
@@ -18,12 +18,10 @@
         <button type="button" class="btn btn-secondary" @click="login">
           로그인
         </button>
-        <span>
-          <b><i>logo</i></b> 가 처음이신가요?
-        </span>
+        <span> <b>SPACEZ</b> 가 처음이신가요? </span>
         <br />
         <router-link class="submit" :to="{ name: 'insert' }" @click="onClose">
-          회원가입
+          회원가입하러 가기
         </router-link>
       </div>
     </template>
@@ -110,40 +108,43 @@ export default {
 
 <style scoped>
 .btn-secondary {
-  background: blue;
-  width: 300px;
+  background: rgb(4, 20, 97, 1);
+  width: 250px;
   height: 70px;
   font-size: 30px;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 10%;
+  margin-bottom: 10%;
   margin-left: 80px;
   margin-right: 80px;
   border-radius: 20px;
 }
 b {
-  color: blue;
+  color: rgb(4, 20, 97, 1);
 }
 .loginform {
   align-items: center;
-  margin-top: 50px;
 }
 
 input {
   width: 400px;
-  height: 100px;
+  height: 60px;
   text-align: center;
-  font-size: 30px;
+  font-size: 1.5em;
   margin-left: 40px;
   margin-right: 50px;
+  margin-top: 2%;
+  margin-bottom: 2%;
   border: 1px solid white;
   border-bottom: 1px solid gray;
+  opacity: 0.5;
 }
 span {
   text-align: center;
-  font-size: 30px;
+  font-size: 1.5rem;
 }
 .submit {
   color: black;
   font-size: 20px;
+  opacity: 0.3;
 }
 </style>

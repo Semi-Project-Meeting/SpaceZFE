@@ -14,7 +14,7 @@
         <div class="modal-body">
           <slot name="body"></slot>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer" style="border-top: 1px solid white">
           <slot name="footer"></slot>
         </div>
       </div>
@@ -47,12 +47,15 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
 }
 .modal-title {
-  padding-left: 160px;
-  font-size: 40px;
+  padding-left: 33%;
+  font-size: 50px;
 }
-
+.modal-header {
+  border-bottom: 1px solid white;
+  padding-top: 20%;
+}
 .modal-content {
-  height: 700px;
+  height: 650px;
   text-align: center;
   border-radius: 20px;
 }
